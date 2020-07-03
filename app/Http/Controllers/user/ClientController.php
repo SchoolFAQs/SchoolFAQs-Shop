@@ -4,8 +4,12 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Laravel\Scout\Searchable;
+use TeamTNT\TNTSearch\TNTSearch;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Vendor;
+use App\Models\Order;
 
 class ClientController extends Controller
 {
@@ -18,8 +22,12 @@ class ClientController extends Controller
     {
         //
         $category = Category::all();
+        $prod = Product::all()->pluck('id');
+        //dd($prod);
+        $order_count = Order::all()->pluck('product_name')->countBy();
+        //dd($count);
         $products = Product:: orderBy('created_at', 'desc')->paginate(6);
-        return view('users.welcome', compact('products', 'category'));
+        return view('users.welcome', compact('products', 'category', 'order_count'));
     }
 
     /**
@@ -41,6 +49,38 @@ class ClientController extends Controller
     public function create()
     {
         //
+    }
+    //Search Student
+    public function general_search(Request $request)
+    {
+        $request->validate([
+            'search' => 'required'
+        ]);
+        $productSearch = Product::search($request->input('search'))->get();
+        //$vendorSearch = Vendor::search($request->input('search'))->get();
+        //$categorySearch = Category::search($request->input('search'))->get();
+        $search = $request->input('search');
+        $category = Category::orderBy('created_at', 'desc');
+        //dd($productSearch);
+        return view('users.search', compact('productSearch', 'search', 'category'));
+
+    }
+    public function category_search(Request $request)
+    {
+        $request->validate([
+            'search' => 'required'
+        ]);
+        //$tnt = new TNTSearch;
+        //$productSearch = Product::search($request->input('search'))->get();
+        //$vendorSearch = Vendor::search($request->input('search'))->get();
+        $categorySearch = Category::find($request->input('search'));
+        //$categorySearch->products()->sync($request->search);
+        $search = $categorySearch->category_name;
+        //dd($categorySearch->products);
+        //dd($categorySearch);
+        $category = Category::orderBy('created_at', 'desc');
+        return view('users.category_search', compact('categorySearch','search', 'category'));
+
     }
 
     /**

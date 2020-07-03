@@ -3,6 +3,7 @@
     @include('users.layouts.sidebar')
   @endsection
 @section('content')
+ @include('users.layouts.mainsearch')
  <div class="container">
     <div id="demo" class="carousel slide carousel-fade" data-ride="carousel">
       <!-- Indicators -->
@@ -54,7 +55,10 @@
         	<div class="card-body">
           		<h4 class="card-title text-center text-uppercase">{{$product->product_name}}</h4>
 
-              <h6 class="card-subtitle text-muted mb-1">Rating: {{$product->product_level}}</h6>
+              <h6 class="card-subtitle text-muted mb-1">Rating: {{$product->product_level}}
+                
+              </h6>
+
               <hr>
               <div class="justify-content-between align-items-center">
                 <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-store"></i> {{$product->vendor->vendor_name}} </h6>

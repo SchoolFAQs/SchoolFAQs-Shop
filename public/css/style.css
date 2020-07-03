@@ -1,3 +1,8 @@
+input[type="submit"] {
+    font-family: "Font Awesome 5 Free"; // for the open access version
+    font-size: 1.3333333333333333em;
+    font-weight: 900;
+}
 .img-cover-circle {
     border-radius: 50%;
     width: 10%;

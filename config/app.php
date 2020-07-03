@@ -171,6 +171,8 @@ return [
          * Package Service Providers...
          */
         Mediumart\Orange\OrangeServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
+        TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 
         /*
          * Application Service Providers...

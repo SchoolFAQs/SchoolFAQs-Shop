@@ -14,10 +14,6 @@
           <a class="nav-link text-white" href="#"><i class="fas fa-phone-alt"></i> Contact Us</a>
         </li>
       </ul>
-      <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-        <button type="submit"><i class="fas fa-search"></i></button>
-      </form>
     </div>
     </div>
   </nav>

@@ -18,7 +18,7 @@
     	       <div class="card-footer">
               <input type="hidden" name="vendor_email" value="{{$product->vendor->vendor_email}}">
              <div class="card-footer">
-              <input type="submit" class="btn px-3 btn-danger text-light my-2 mt-3" value="&#xf07a; Pay">
+              <input type="submit" class="fas fa-money-bill btn px-3 py-2 btn-danger text-light my-2 mt-3" value="&#xf3cd; Pay">
             </div>
           </div>
             @csrf
