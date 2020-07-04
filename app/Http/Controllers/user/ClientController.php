@@ -56,6 +56,15 @@ class ClientController extends Controller
         $request->validate([
             'search' => 'required'
         ]);
+        //$tnt = new TNTSearch;
+        //$tnt->loadConfig([
+        //"storage"   => storage_path(),
+        //"driver"    => 'filesystem',
+        //]);
+        //$tnt->selectIndex("products.index");
+        //$tnt->asYouType = true;
+        //$results = $tnt->search($request->input('search'));
+        //dd($results);
         $productSearch = Product::search($request->input('search'))->get();
         //$vendorSearch = Vendor::search($request->input('search'))->get();
         //$categorySearch = Category::search($request->input('search'))->get();
