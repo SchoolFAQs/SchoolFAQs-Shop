@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Mediumart\Orange\SMS\SMS;
@@ -11,8 +12,9 @@ use Mediumart\Orange\SMS\Http\SMSClient;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Vendor;
+use App\Models\Order;
 
-class ProductsController extends Controller
+class SuperadminProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,14 +23,21 @@ class ProductsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('superAdmin');
     }
     
     public function index()
     {
         //
-        $products = Product::with('vendor')->get();
-        return view('admin.products.product_list', compact('products'));
+        $products = Product::orderBy('created_at', 'desc')->with('vendor')->get();
+        //$order = Order::orderBy('product_id', 'desc')->with('products')->count();
+        $orders = DB::table('orders')
+             ->select('product_id', DB::raw('count(*) as total'))
+             ->groupBy('product_id')
+             ->get();
+        //dd($orders);
+        
+        return view('admin.superadmin.products.product_list', compact('products', 'orders'));
     }
 
     /**
@@ -41,7 +50,7 @@ class ProductsController extends Controller
         //
         $vendor = Vendor::all();
         $category = Category::all();
-        return view('admin.products.product_create', compact('category', 'vendor'));
+        return view('admin.superadmin.products.product_create', compact('category', 'vendor'));
     }
 
     /**
@@ -110,7 +119,7 @@ class ProductsController extends Controller
                         ->message('Hello '. $product->vendor->user_name. '. Congratulations, your product, '. $product->product_name. ', sold at '.$product->product_price.'FCFA has been added to your '.$product->vendor->vendor_name.' shop. Use this link to view it: ' . route('products.index', $product->id). '')
                         ->send();
 
-        return redirect(route('products.index'))->with('success', 'Product Created');
+        return redirect(route('adminproducts.index'))->with('success', 'Product Created');
     }
 
     /**
@@ -134,7 +143,7 @@ class ProductsController extends Controller
     {
         //
         $product = Product::find($id);
-        return view('admin.products.product_edit', compact('product'));
+        return view('admin.superadmin.products.product_edit', compact('product'));
     }
 
     /**
@@ -148,10 +157,12 @@ class ProductsController extends Controller
     {
         //
         $this->validate($request, [
-            'product_name' => 'required',
-            'product_price' => 'required',
-            'product_description' => 'required',
+            'product_name' => 'sometimes',
+            'product_price' => 'sometimes',
+            'product_description' => 'sometimes',
             'product_level' => 'sometimes',
+            'featured_product' => 'sometimes',
+            'best_seller' => 'sometimes',
             'product_image' => 'sometimes|file|image|max:1999',
         ]);
 
@@ -176,20 +187,40 @@ class ProductsController extends Controller
         $product->product_image = $fileImageToStore;
         $product->product_file = $product->product_file;
         $product->vendor_id = $product->vendor_id;
-        $product->admin_name = Auth()->User()->name;
+        $product->admin_name = $product->admin_name;
+        $product->best_seller = $request->input('best_seller');
+        $product->featured = $request->input('featured_product');
         $product->save();
         $category_id = $product->category_id;
         $product->categories()->attach($category_id);
 
-        // Send SMS
-        $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
+        // SMS for best Seller
+        if($product->best_seller == 1) {
+            $best_seller = 'BEST SELLER';
+            $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
         $sms = new SMS($client);
         $sendSMS = $sms->to($product->vendor->vendor_tel)
                         ->from(config('app.sms_number'), 'SchoolFAQs')
-                        ->message('Hello '. $product->vendor->user_name. '. Your product, '. $product->product_name. ', sold at '.$product->product_price.'FCFA has been updated. Use this link to view it: ' . route('products.index', $product->id). '')
+                        ->message('Hello '. $product->vendor->user_name. '. Congratulations. Your product, '. $product->product_name. ', sold at '.$product->product_price.'FCFA is now a '.$best_seller.'.')
                         ->send();
+        } else {
 
-        return redirect(route('products.index'))->with('success', 'Product Updated');
+        }
+        //SMS for featured PRoduct
+        if($product->featured == 1){
+            $featured_product = 'FEATURED PRODUCT';
+            $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
+        $sms = new SMS($client);
+        $sendSMS = $sms->to($product->vendor->vendor_tel)
+                        ->from(config('app.sms_number'), 'SchoolFAQs')
+                        ->message('Hello '. $product->vendor->user_name. '. Congratulations. Your product, '. $product->product_name. ', sold at '.$product->product_price.'FCFA is now a '.$featured_product.'.')
+                        ->send();
+        } else {
+
+        }
+    
+
+        return redirect(route('adminproducts.index'))->with('success', 'Product Updated');
     }
 
     /**
@@ -201,8 +232,5 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
-        $product = Product::find($id);
-        $product->delete();
-        return redirect(route('products.index'))->with('success', 'Product Deleted');
     }
 }

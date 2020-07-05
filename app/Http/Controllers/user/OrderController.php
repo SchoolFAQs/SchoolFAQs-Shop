@@ -84,6 +84,7 @@ class OrderController extends Controller
         $order->product_id = $request->input('product_id');
         $order->vendor_email = $request->input('vendor_email');
         $order->save();
+        $order->products()->attach($order->product_id);
         // Send SMS
         $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
         $sms = new SMS($client);

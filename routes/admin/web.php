@@ -22,18 +22,21 @@ Route::domain('admin.'. config('app.domain'))->group(function () {
         // Default Dashboard
         Route::get('dashboard', 'PageController@dashboard')->name('admin.dashboard');
         Route::get('vieworder', 'PageController@index')->name('page.index');
+        Route::resource('products','ProductsController');
         Route::resource('store', 'StoreController');
+        Route::get('uservendors/{id}', 'VendorsController@create')->name('uservendors.create');
+		Route::resource('uservendors', 'VendorsController' , ['except' => ['create']]);
 
 			// Admin Routes
 			Route::middleware(['Admin'])->group(function() {
 				Route::resource('category', 'CategoriesController');
-				Route::resource('products','ProductsController');
 			});	
 		
 			// SuperAdmin Routes
 			Route::middleware(['superAdmin'])->group(function() {
-				Route::get('vendors/{id}', 'VendorsController@create')->name('vendors.create');
-				Route::resource('vendors', 'VendorsController' , ['except' => ['create']]);
+				Route::resource('adminproducts','SuperAdminProductsController');
+				Route::get('adminvendors/{id}', 'SuperAdminVendorController@create')->name('vendors.create');
+				Route::resource('adminvendors', 'SuperAdminVendorController', ['except' => ['create']]);
 				Route::resource('user', 'UserController');
 				Route::get('todaysales', 'TotalOrdersController@today_sales')->name('today.sales');
 				Route::get('monthsales', 'TotalOrdersController@month_sales')->name('month.sales');

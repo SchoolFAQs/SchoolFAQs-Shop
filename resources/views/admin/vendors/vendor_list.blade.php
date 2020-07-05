@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-	<a href="{{ route('user.index') }}" class="btn btn-secondary">Create Vendor</a>
+	<a href="{{ route('uservendors.create', Auth()->User()->id) }}" class="btn btn-secondary">Create Vendor</a>
 <hr>
   	<table class="table table-dark">
     <thead>
@@ -15,6 +15,7 @@
       </tr>
     </thead>
           @foreach($vendors as $vendor)
+          @if($vendor->vendor_email == Auth()->User()->email)
           <tbody class="table-light text-dark">
             <tr>
               <td><i class="fas fa-store"></i> {{$vendor->vendor_name}}</td>
@@ -24,8 +25,8 @@
               <td><i class="fas fa-calendar-day"></i> {{$vendor->created_at}}</td>
               <td><i class="fas fa-users"></i> {{$vendor->admin_name}}</td>
               <td><div class="d-flex justify-content-between align-items-center">
-                <a href="{{ route('adminvendors.edit', $vendor->id) }}" class="btn btn-dark mt-2 text-light"><i class="fas fa-edit"></i> Edit</a>
-                <form action="{{ route('adminvendors.destroy', $vendor->id) }}" method="POST" class="d-inline">
+                <a href="{{ route('uservendors.edit', $vendor->id) }}" class="btn btn-dark mt-2 text-light"><i class="fas fa-edit"></i> Edit</a>
+                <form action="{{ route('uservendors.destroy', $vendor->id) }}" method="POST" class="d-inline">
                   <input type="hidden" name="_method" value="DELETE">
                   <button class="btn btn-danger">Delete</button>
                   @csrf
@@ -33,6 +34,7 @@
               </div></td>
             </tr>           
           </tbody>
+          @endif
           @endforeach          
   </table>
   

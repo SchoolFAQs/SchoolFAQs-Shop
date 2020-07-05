@@ -54,10 +54,31 @@
         	</div>
         	<div class="card-body">
           		<h4 class="card-title text-center text-uppercase">{{$product->product_name}}</h4>
-
-              <h6 class="card-subtitle text-muted mb-1">Rating: {{$product->product_level}}
-                
-              </h6>
+              
+              <div class="buy text-info d-flex justify-content-around align-items-center">
+                @if($product->best_seller == 1)
+                 <h6><span><i class="fas fa-award"></i> BEST SELLER</span></h6>
+                @endif
+                @if($product->featured == 1)
+                <h6><span><i class="fas fa-star"></i> FEATURED</span></h6>
+                @endif
+              </div>
+              <div class="buy d-flex justify-content-around align-items-center">
+                <div>
+                  <span>
+                    <h6 class="text-muted">Rating: {{$product->product_level}}</h6> 
+                  </span>
+                </div>
+                <div>
+                  <span>
+                    @foreach($order_count as $order)
+                      @if($product->id == $order->product_id)
+                        <h6 class="text-muted">Orders: {{$order->total}}</h6>
+                      @endif
+                    @endforeach
+                  </span>
+                </div>               
+              </div>
 
               <hr>
               <div class="justify-content-between align-items-center">

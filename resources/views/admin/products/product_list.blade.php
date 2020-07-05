@@ -7,6 +7,7 @@
 	<hr>
 	<div class="row">
   	@foreach($products as $product)
+    @if($product->admin_name == Auth()->User()->name)
     <div class="col-12 col-lg-4">
     	<div class="card my-3 mx-3 shadow rounded-left">
     		<div class="embed-responsive embed-responsive-4by3 hovereffect">
@@ -31,6 +32,7 @@
         	</div>
       	</div>  
     </div>
+    @endif
     @endforeach   
   </div>
 </div>

@@ -23,6 +23,8 @@ class CreateProductsTable extends Migration
             $table->string('product_level')->nullable();
             $table->unsignedInteger('vendor_id');
             $table->string('admin_name');
+            $table->integer('featured')->nullable();
+            $table->integer('best_seller')->nullable();
             $table->timestamps();
         });
     }

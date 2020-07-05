@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 	<h1 class="text-center my-3"> EDIT VENDOR</h1>
-	<form method="POST" action="{{ route('adminvendors.update', $vendor->id) }}" class="form-group" enctype="multipart/form-data">
+	<form method="POST" action="{{ route('uservendors.update', $vendor->id) }}" class="form-group" enctype="multipart/form-data">
 		<label><h5>User Name</h5></label>
 		<input type="text" class="form-control my-2 py-3" readonly="" name="user_name" value="{{$vendor->user_name}}">
 		<label><h5>Vendor Name</h5></label>
@@ -25,7 +25,7 @@
 			</div>		
 		</div>
 		<input type="submit" class="btn text-light btn-secondary my-2" name="Save Product">
-		<a class="btn bg-dark text-light py-1 my-2" href="{{ route('adminvendors.index') }}">Go Back</a>
+		<a class="btn bg-dark text-light py-1 my-2" href="{{ route('uservendors.index') }}">Go Back</a>
 		<input type="hidden" name="_method" value="PUT">
 		@csrf		
 	</form>

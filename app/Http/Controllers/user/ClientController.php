@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use DB;
 use Laravel\Scout\Searchable;
 use TeamTNT\TNTSearch\TNTSearch;
 use App\Models\Product;
@@ -23,10 +24,12 @@ class ClientController extends Controller
         //
         $category = Category::all();
         $prod = Product::all()->pluck('id');
-        //dd($prod);
-        $order_count = Order::all()->pluck('product_name')->countBy();
-        //dd($count);
-        $products = Product:: orderBy('created_at', 'desc')->paginate(6);
+        //$order_count = Order::all()->pluck('product_name')->countBy();
+        $order_count = DB::table('orders')
+             ->select('product_id', DB::raw('count(*) as total'))
+             ->groupBy('product_id')
+             ->get();
+        $products = Product::orderBy('best_seller', 'desc')->orderBy('featured', 'desc')->paginate(6);
         return view('users.welcome', compact('products', 'category', 'order_count'));
     }
 
@@ -65,13 +68,17 @@ class ClientController extends Controller
         //$tnt->asYouType = true;
         //$results = $tnt->search($request->input('search'));
         //dd($results);
-        $productSearch = Product::search($request->input('search'))->get();
+        $order_count = DB::table('orders')
+             ->select('product_id', DB::raw('count(*) as total'))
+             ->groupBy('product_id')
+             ->get();
+        $productSearch = Product::search($request->input('search'))->orderBy('best_seller', 'desc')->orderBy('featured', 'desc')->get();
         //$vendorSearch = Vendor::search($request->input('search'))->get();
         //$categorySearch = Category::search($request->input('search'))->get();
         $search = $request->input('search');
         $category = Category::orderBy('created_at', 'desc');
         //dd($productSearch);
-        return view('users.search', compact('productSearch', 'search', 'category'));
+        return view('users.search', compact('productSearch', 'search', 'category', 'order_count'));
 
     }
     public function category_search(Request $request)
@@ -87,8 +94,12 @@ class ClientController extends Controller
         $search = $categorySearch->category_name;
         //dd($categorySearch->products);
         //dd($categorySearch);
+        $order_count = DB::table('orders')
+             ->select('product_id', DB::raw('count(*) as total'))
+             ->groupBy('product_id')
+             ->get();
         $category = Category::orderBy('created_at', 'desc');
-        return view('users.category_search', compact('categorySearch','search', 'category'));
+        return view('users.category_search', compact('categorySearch','search', 'category', 'order_count'));
 
     }
 

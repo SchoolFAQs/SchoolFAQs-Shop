@@ -18,6 +18,9 @@ class Product extends Model
     public function categories() {
     	return $this->belongsToMany(Category::class)->withTimestamps();
     }
+    public function orders() {
+        return $this->belongsToMany(Order::class)->withTimestamps();
+    }
     public function toSearchableArray()
     {
         $array = $this->toArray();
