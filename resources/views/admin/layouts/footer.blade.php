@@ -1,7 +1,7 @@
 <footer class="footer mt-2">
     <div>
         <div class="copyright bg-dark text-light text-center py-2 border-top">
-            <span class=""><i class="fas fa-shopping-cart"></i> SchoolFAQs Store &copy; {{date('Y')}} | SchoolFAQs CO. LTD </span>
+            <span class=""><i class="fas fa-shopping-cart"></i> SchoolFAQs Shop &copy; 2019 - {{date('Y')}} | SchoolFAQs CO. LTD </span>
         </div>
     </div>
 </footer>

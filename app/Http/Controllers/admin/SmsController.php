@@ -3,27 +3,56 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use DB;
+use Mediumart\Orange\SMS\SMS;
+use Mediumart\Orange\SMS\Http\SMSClient;
+use App\Models\Message;
 use App\User;
 
-class UserController extends Controller
+class SmsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function __construct()
     {
         $this->middleware('superAdmin');
     }
-
+    
     public function index()
     {
         //
-        $user_total = User::all()->count();
-        $user = User::orderBy('id', 'asc')->orderBy('role', 'asc')->paginate(6);
-        return view('admin.superadmin.users.user_list', compact('user', 'user_total'));
+        // Check SMS Balance
+        $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
+        $sms = new SMS($client);  
+        $sms_data = $sms->balance('CMR');
+        $partnerContracts = Arr::pull($sms_data, 'partnerContracts');
+        //$partnerId = Arr::pull($partnerContracts, 'partnerId');
+        $contracts = Arr::pull($partnerContracts, 'contracts');
+        $o = Arr::pull($contracts, '0');
+        $Servicecontracts = Arr::pull($o, 'serviceContracts');
+        $o2 = Arr::pull($Servicecontracts, '0');
+
+
+
+        //Send data to Blade
+        $sms_units = Arr::pull($o2, 'availableUnits');
+        $description = Arr::pull($o2, 'scDescription');
+        $messages = Message::orderBy('created_at', 'desc')->paginate(10);
+        $message_count = Message::all()->count();
+
+        //Admin SMS Usage
+        $admin_usage_count = DB::table('messages')
+             ->select('admin_id', DB::raw('count(*) as total'))
+             ->groupBy('admin_id')
+             ->get();
+
+        return view('admin.superadmin.messages.message_index', compact('messages', 'sms_units','description', 'message_count', 'admin_usage_count'));
     }
 
     /**
@@ -34,7 +63,6 @@ class UserController extends Controller
     public function create()
     {
         //
-        return redirect(route('register'));
     }
 
     /**
@@ -57,6 +85,8 @@ class UserController extends Controller
     public function show($id)
     {
         //
+        $message = Message::find($id);
+        return view('admin.superadmin.messages.message_show', compact('message'));
     }
 
     /**
@@ -68,8 +98,6 @@ class UserController extends Controller
     public function edit($id)
     {
         //
-        $user = User::find($id);
-        return view('admin.superadmin.users.user_edit', compact('user'));
     }
 
     /**
@@ -82,13 +110,6 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->validate($request, [
-            'role' => 'required',
-        ]);
-        $user = User::find($id);
-        $user->role = $request->input('role');
-        $user->save();
-        return redirect(route('user.index'))->with('success', 'Role Assigned!');
     }
 
     /**
@@ -100,9 +121,5 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-        $user = User::find($id);
-        $user->delete();
-        return redirect(route('user.index'))->with('success', 'User Deleted');
-
     }
 }

@@ -79,12 +79,14 @@ class PageController extends Controller
         $totalOrders = Order::where('vendor_email' , Auth()->User()->email)->count();
         $totalMon = Order::where('vendor_email' , Auth()->User()->email)->sum('product_price');
         $totalMoney = $totalMon - $totalMon * config('app.rate');
-        return view('admin.orders.order_index', compact('order', 'product', 'totalMoney', 'totalOrders'));
-            
-           
-       
+        return view('admin.orders.order_index', compact('order', 'product', 'totalMoney', 'totalOrders'));                
     }
-
+    public function profile ($id){
+        $profile = User::find($id);
+        //dd($profile);
+        return view('admin.users.profile', compact('profile'));
+    }
+    
 
 
 }

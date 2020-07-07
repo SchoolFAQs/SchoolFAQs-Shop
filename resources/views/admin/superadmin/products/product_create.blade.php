@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
 <div class="container">
-	<h1 class="text-center my-3"> CREATE PRODUCT</h1>
+	<h1 class="text-center my-3"> ADMIN CREATE PRODUCT</h1>
 	<form method="POST" action="{{ route('products.store') }}" autocomplete="on" class="form-group" enctype="multipart/form-data">
 		<label><h5>Product Name</h5></label>
 		<input type="text" class="form-control my-2 py-3" name="product_name" placeholder="Product Name">
@@ -41,15 +41,13 @@
 			<select name="vendor_id" class=" form-control selectpicker" title="Choose Vendor.." data-live-search="true" id="vendor_id">
 				<option value=""></option>
 				@foreach($vendor as $v)
-				@if($v->vendor_email == Auth()->User()->email)
 				<option data-icon="fas fa-store" value="{{$v->id}}">{{$v->vendor_name}}</option>
-				@endif
 				@endforeach
 
 			</select>
 		</div>
 		<input type="submit" class="btn text-light bg-secondary my-2" name="Save Product">
-		<a class="btn bg-dark text-light py-1 my-2" href="{{ route('products.index') }}">Go Back</a>
+		<a class="btn bg-dark text-light py-1 my-2" href="{{ route('adminproducts.index') }}">Go Back</a>
 		@csrf		
 	</form>
 </div>

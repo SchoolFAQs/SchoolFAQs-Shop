@@ -18,7 +18,7 @@
     	       <div class="card-footer">
               <input type="hidden" name="vendor_email" value="{{$product->vendor->vendor_email}}">
              <div class="card-footer">
-              <input type="submit" class="fas fa-money-bill btn px-3 py-3 btn-dark text-light my-2 mt-3" value="Pay {{number_format($product->product_price)}} FCFA">
+              <input type="submit" class="btn mr-2 rounded-pill btn-primary" value="Pay {{number_format($product->product_price)}} FCFA">
             </div>
           </div>
             @csrf

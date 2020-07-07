@@ -26,10 +26,19 @@ Route::domain('admin.'. config('app.domain'))->group(function () {
         Route::resource('store', 'StoreController');
         Route::get('uservendors/{id}', 'VendorsController@create')->name('uservendors.create');
 		Route::resource('uservendors', 'VendorsController' , ['except' => ['create']]);
+		Route::get('profile/{id}', 'PageController@profile')->name('user.profile');
 
 			// Admin Routes
 			Route::middleware(['Admin'])->group(function() {
 				Route::resource('category', 'CategoriesController');
+				Route::resource('adminmessage', 'AdminMessagesController');
+				Route::post('sendmessage', 'AdminMessagesController@send_message')->name('admin.sendmessage');
+				Route::resource('applications', 'ApplicationsController');
+				Route::get('idcard/{id}', 'ApplicationsController@view_id')->name('applications.idcard');
+				Route::get('license/{id}', 'ApplicationsController@view_license')->name('applications.license');
+				Route::get('kyc/{id}', 'ApplicationsController@view_kyc')->name('applications.kyc');
+				Route::put('approve/{id}', 'ApplicationsController@approve')->name('applications.approve');
+				Route::put('reject/{id}', 'ApplicationsController@reject')->name('applications.reject');
 			});	
 		
 			// SuperAdmin Routes
@@ -43,6 +52,7 @@ Route::domain('admin.'. config('app.domain'))->group(function () {
 				Route::get('quartersales', 'TotalOrdersController@quarter_sales')->name('quarter.sales');
 				Route::get('yearsales', 'TotalOrdersController@year_sales')->name('year.sales');
 				Route::resource('totalorders', 'TotalOrdersController');
+				Route::resource('sms', 'SmsController');
 			});	
 			
 	});

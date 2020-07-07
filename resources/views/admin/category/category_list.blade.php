@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 @section('content')
-<div class="container">
 	<div>
 			<a href="{{ route('category.create') }}" class="btn btn-dark">Add Category</a>
 	</div>
@@ -30,5 +29,4 @@
     @endforeach   
   </div>
   {{$categories->links()}}
-</div>
 @endsection

@@ -1,5 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
+	<div><h1>USER LIST</h1></div>
+	<p class="text-muted"><i class="fas fa-users"></i> Total: {{$user_total}}</p>
 	<div>
 		<a href="{{ route('user.create') }}" class="btn btn-dark">Register User</a>
 	</div>
@@ -30,11 +32,15 @@
 		 			@endif
 		 			</td>
 		 			<td>
-		 				<form action="{{ route('vendors.create', $u->id) }}" method="GET" class="d-inline">
-			                <button class="btn btn-secondary">Create Vendor</button>
-			            </form>
+						@if($u->role == NULL || $u->role > 1)
+							<form action="{{ route('user.edit', $u->id) }}" method="GET" class="d-inline">
+				                <button class="btn btn-info">Assign Role</button>
+				            </form>
 
-						@if($u->role > 1)
+							<form action="{{ route('vendors.create', $u->id) }}" method="GET" class="d-inline">
+			                	<button class="btn btn-secondary">Create Vendor</button>
+			            	</form>
+
 			 				<form action="{{ route('user.destroy', $u->id) }}" method="POST" class="d-inline">
 			                  <input type="hidden" name="_method" value="DELETE">
 			                  <button class="btn btn-danger">Delete</button>

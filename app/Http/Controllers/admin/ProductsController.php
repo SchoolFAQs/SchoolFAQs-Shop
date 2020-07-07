@@ -103,12 +103,12 @@ class ProductsController extends Controller
         $product->categories()->attach($category_id);
 
         // Send SMS
-        $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
+        /*$client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
         $sms = new SMS($client);
         $sendSMS = $sms->to($product->vendor->vendor_tel)
                         ->from(config('app.sms_number'), 'SchoolFAQs')
                         ->message('Hello '. $product->vendor->user_name. '. Congratulations, your product, '. $product->product_name. ', sold at '.$product->product_price.'FCFA has been added to your '.$product->vendor->vendor_name.' shop. Use this link to view it: ' . route('products.index', $product->id). '')
-                        ->send();
+                        ->send();*/
 
         return redirect(route('products.index'))->with('success', 'Product Created');
     }
@@ -182,12 +182,12 @@ class ProductsController extends Controller
         $product->categories()->attach($category_id);
 
         // Send SMS
-        $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
+        /*$client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
         $sms = new SMS($client);
         $sendSMS = $sms->to($product->vendor->vendor_tel)
                         ->from(config('app.sms_number'), 'SchoolFAQs')
                         ->message('Hello '. $product->vendor->user_name. '. Your product, '. $product->product_name. ', sold at '.$product->product_price.'FCFA has been updated. Use this link to view it: ' . route('products.index', $product->id). '')
-                        ->send();
+                        ->send();*/
 
         return redirect(route('products.index'))->with('success', 'Product Updated');
     }

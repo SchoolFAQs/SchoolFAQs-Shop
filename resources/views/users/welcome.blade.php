@@ -17,7 +17,7 @@
       <div class="carousel-inner">
       @foreach( $category as $cat )
         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-          <img src="/storage/category_images/{{$cat->cover_photo}}" alt="{{ $cat->category_name }}" width="1100" height="500">
+          <img src="/storage/category_images/{{$cat->cover_photo}}" alt="{{ $cat->category_name }}" height="500" width="1150">
           <div class="black-overlay"></div>
           <div class="carousel-caption d-none d-md-block">
               <h3 class="text-light p-1 rounded text-left">{{ $cat->category_name }}</h3>
@@ -42,6 +42,7 @@
     </div>
 
   <div class="row">
+  	
   	@foreach($products as $product)
     <div class="col-12 col-lg-4">
     	<div class="card my-3 mx-3 shadow rounded-left">
@@ -90,15 +91,16 @@
             			<h5 class=" mt-4"><i class="fa fa-money"></i> {{number_format($product->product_price)}} FCFA</h5>
             		</div> 
 
-             		<a href="{{ route('client.show', $product->id) }}" class="btn btn-danger mt-3 text-light"><i class="fas fa-shopping-cart"></i> Buy</a>
+             		<a href="{{ route('client.show', $product->id) }}" class="btn mr-2 rounded-pill btn-danger"><i class="fas fa-shopping-cart"></i> Buy</a>
           		</div>
               <h6 class="badge">Tags:</h6>
               @foreach($product->categories as $cat)
                 <span class="card-subtitle badge text-muted"> {{$cat->category_name}} </span>
               @endforeach
         	</div>
-      	</div>  
+      	</div>
     </div>
+    
     @endforeach   
   </div>
   {{$products->links()}}

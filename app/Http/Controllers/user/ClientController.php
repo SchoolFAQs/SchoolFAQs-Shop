@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Vendor;
 use App\Models\Order;
+use App\Models\Apply;
 
 class ClientController extends Controller
 {
@@ -43,6 +44,75 @@ class ClientController extends Controller
         //
         dd('123');
     }
+
+    public function vendor_apply()
+    {
+        //
+       return view('users.vendor_apply');
+    }
+
+    public function vendor_application(Request $request)
+    {
+        $this->validate($request, [
+            'user_name' => 'required',
+            'user_email' => 'required',
+            'user_tel' => 'required',
+            'date_of_birth' => 'required',
+            'id_card' => 'required|mimetypes:application/pdf',
+            'license' => 'sometimes|mimetypes:application/pdf',
+            'kyc_form' => 'required|mimetypes:application/pdf'
+        ]);
+        $apply = new Apply;
+        $apply->user_name = $request->input('user_name');
+
+        //Save ID Card File
+        if($request->hasFile('id_card')){
+            //Get just extenstion
+            $extension = $request->file('id_card')->getClientOriginalExtension();
+            //File Name to store
+            $idCardName = $apply->user_name.'_idcard'.time().'.'.$extension;
+             //Upload Image
+            $path = $request->file('id_card')->storeAs('public/applications/'.$request->input('user_name'), $idCardName);
+
+        } else {
+                $idCardName = 'noimage.jpg';
+        }
+        //Save License File
+        if($request->hasFile('license')){
+            //Get just extenstion
+            $extension = $request->file('license')->getClientOriginalExtension();
+            //File Name to store
+            $licenseName = $apply->user_name.'_license'.time().'.'.$extension;
+             //Upload Image
+            $path = $request->file('license')->storeAs('public/applications/'.$request->input('user_name'), $licenseName);
+
+        } else {
+                $licenseName = 'noimage.jpg';
+        }
+
+        //Save KYF File
+        if($request->hasFile('kyc_form')){
+            //Get just extenstion
+            $extension = $request->file('kyc_form')->getClientOriginalExtension();
+            //File Name to store
+            $kycName = $apply->user_name.'_kyc'.time().'.'.$extension;
+             //Upload Image
+            $path = $request->file('kyc_form')->storeAs('public/applications/'.$request->input('user_name'), $kycName);
+
+        } else {
+                $kycName = 'noimage.jpg';
+        }
+  
+        $apply->user_email = $request->input('user_email');
+        $apply->user_tel = '+237'.$request->input('user_tel');
+        $apply->date_of_birth = $request->input('date_of_birth');
+        $apply->id_card = $idCardName;
+        $apply->license = $licenseName;
+        $apply->kyc_form = $kycName;
+        $apply->save();
+        return view('users.vendorApply')->with('success', 'Application Sent');
+    }
+
     public function side_bar_cat()
     {
         //

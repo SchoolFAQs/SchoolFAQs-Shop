@@ -12,6 +12,7 @@ use Malico\Momo\Support\MomoTransaction;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\Message;
 
 class OrderController extends Controller
 {
@@ -96,6 +97,14 @@ class OrderController extends Controller
                         ->from(config('app.sms_number'), 'SchoolFAQs')
                         ->message('Hello '. $order->customer_name. '. Thank you for purchasing \''. $order->product_name. '\' from The SchoolFAQs Shop. We hope to serve you again soon. You can download your product using this link: '.$url)
                         ->send();
+        //Audit Message
+        $smsaudit = new Message;
+        $smsaudit->message_type = 'Auto';
+        $smsaudit->message_purpose = 'Product Sale';
+        $smsaudit->customer_name = $order->customer_name;
+        $smsaudit->customer_tel = $order->customer_tel;
+        $smsaudit->save();
+        // Return Download Link
          $urli = URL::temporarySignedRoute('index.download', now()->addHours(1), [
                 'id' => $order->product_id, 
                 'od' => $order->id 

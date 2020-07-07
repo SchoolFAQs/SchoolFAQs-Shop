@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 @section('content')
-<div class="container">
 	<div>
 			<a href="{{ route('products.create') }}" class="btn btn-dark">Add product</a>
 	</div>
@@ -35,5 +34,4 @@
     @endif
     @endforeach   
   </div>
-</div>
 @endsection

@@ -21,5 +21,8 @@ Route::domain(config('app.domain'))->group( function() {
 	Route::resource('client', 'ClientController', ['except' => ['index']]);
 	Route::get('service/review', 'ClientController@review')->name('store.remove');
 	Route::resource('order', 'OrderController', ['except' => ['index']]);
+	Route::resource('contact', 'ContactController');
+	Route::get('apply', 'ClientController@vendor_apply')->name('vendor.apply');
+	Route::post('apply', 'ClientController@vendor_application')->name('vendor.application');
 	
 });

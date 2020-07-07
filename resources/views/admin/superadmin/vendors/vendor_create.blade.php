@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
 <div class="container">
-	<h1 class="text-center my-3"> CREATE VENDOR</h1>
+	<h1 class="text-center my-3"> ADMIN CREATE VENDOR</h1>
 	<form method="POST" action="{{ route('adminvendors.store') }}" class="form-group" enctype="multipart/form-data">
 		<label><h5>User Name</h5></label>
 		<input type="text" class="form-control my-2 py-3" readonly="" name="user_name" value="{{$user->name}}">

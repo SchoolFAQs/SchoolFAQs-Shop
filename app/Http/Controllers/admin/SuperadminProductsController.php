@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Vendor;
 use App\Models\Order;
+use App\Models\Message;
 
 class SuperadminProductsController extends Controller
 {
@@ -112,12 +113,13 @@ class SuperadminProductsController extends Controller
         $product->categories()->attach($category_id);
 
         // Send SMS
-        $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
+       /* $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
         $sms = new SMS($client);
         $sendSMS = $sms->to($product->vendor->vendor_tel)
                         ->from(config('app.sms_number'), 'SchoolFAQs')
                         ->message('Hello '. $product->vendor->user_name. '. Congratulations, your product, '. $product->product_name. ', sold at '.$product->product_price.'FCFA has been added to your '.$product->vendor->vendor_name.' shop. Use this link to view it: ' . route('products.index', $product->id). '')
-                        ->send();
+                        ->send();*/
+
 
         return redirect(route('adminproducts.index'))->with('success', 'Product Created');
     }
@@ -203,6 +205,14 @@ class SuperadminProductsController extends Controller
                         ->from(config('app.sms_number'), 'SchoolFAQs')
                         ->message('Hello '. $product->vendor->user_name. '. Congratulations. Your product, '. $product->product_name. ', sold at '.$product->product_price.'FCFA is now a '.$best_seller.'.')
                         ->send();
+        $smsaudit = new Message;
+        $smsaudit->admin_id = Auth()->User()->id;
+        $smsaudit->message_type = 'auto';
+        $smsaudit->message_purpose = 'Best Seller';
+        //$smsaudit->message = $message;
+        $smsaudit->customer_name = $product->vendor->user_name;
+        $smsaudit->customer_tel = $product->vendor->vendor_tel;
+        $smsaudit->save();
         } else {
 
         }
@@ -215,11 +225,17 @@ class SuperadminProductsController extends Controller
                         ->from(config('app.sms_number'), 'SchoolFAQs')
                         ->message('Hello '. $product->vendor->user_name. '. Congratulations. Your product, '. $product->product_name. ', sold at '.$product->product_price.'FCFA is now a '.$featured_product.'.')
                         ->send();
+        $smsaudit = new Message;
+        $smsaudit->admin_id = Auth()->User()->id;
+        $smsaudit->message_type = 'auto';
+        $smsaudit->message_purpose = 'Featured Product';
+        //$smsaudit->message = $message;
+        $smsaudit->customer_name = $product->vendor->user_name;
+        $smsaudit->customer_tel = $product->vendor->vendor_tel;
+        $smsaudit->save();
         } else {
 
         }
-    
-
         return redirect(route('adminproducts.index'))->with('success', 'Product Updated');
     }
 

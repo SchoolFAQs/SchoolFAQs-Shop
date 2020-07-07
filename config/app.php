@@ -18,6 +18,7 @@ return [
     'sms_number' => env('SMS_NUMBER', '+237691427238'),
     'client_id' => env('CLIENT_ID'),
     'client_secret' => env('CLIENT_SECRET'),
+    'application_id' => env('APPLICATION_ID'),
     'rate' => env('RATE'),
 
     /*
@@ -174,6 +175,7 @@ return [
         Laravel\Scout\ScoutServiceProvider::class,
         TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 
+
         /*
          * Application Service Providers...
          */
@@ -182,6 +184,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        //SchoolFAQs Store Global Variables Provider
+        App\Providers\ComposerServiceProvider::class,
 
     ],
 

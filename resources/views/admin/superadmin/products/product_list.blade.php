@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-  <a href="{{ route('adminproducts.create') }}" class="btn btn-secondary">Create Product</a>
+  <a href="{{ route('adminproducts.create') }}" class="btn btn-dark">Create Product</a>
 <hr>
     <table class="table table-dark">
     <thead>

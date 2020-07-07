@@ -8,10 +8,13 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link text-white" href="/"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-white" href="/"><i class="fa fa-home"></i> Shop <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#"><i class="fas fa-phone-alt"></i> Contact Us</a>
+          <a class="nav-link text-white" href="{{ route('vendor.apply') }}"><i class="fas fa-shopping-basket"></i> Sell</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{{ route('contact.create') }}"><i class="fas fa-phone-alt"></i> Contact Us</a>
         </li>
       </ul>
     </div>

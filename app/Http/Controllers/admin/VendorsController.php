@@ -80,12 +80,12 @@ class VendorsController extends Controller
         $vendor->admin_name = Auth()->User()->name;
         $vendor->save();
         // Send SMS
-        $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
+        /*$client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
         $sms = new SMS($client);
         $sendSMS = $sms->to($vendor->vendor_tel)
                         ->from(config('app.sms_number'), 'SchoolFAQs')
                         ->message('Hello '. $vendor->user_name. '. Congratulations, your shop, '. $vendor->vendor_name. ' has been created. Use this link to view it: ' . route('store.index', $vendor->id). '')
-                        ->send();
+                        ->send();*/
        return redirect(route('uservendors.index'))->with('success', 'Vendor Created');
 
         
@@ -155,13 +155,13 @@ class VendorsController extends Controller
         $vendor->save();
 
         // Send SMS
-        $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
+        /*$client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
         $sms = new SMS($client);
         $sendSMS = $sms->to($vendor->vendor_tel)
                         ->from(config('app.sms_number'), 'SchoolFAQs')
                         ->message('Hello '. $vendor->user_name. '.Your shop, '. $vendor->vendor_name. ' has been updated as you requested. Use this link to view it: ' . route('store.index', $vendor->id). '')
-                        ->send();
-       return redirect(route('vendors.index'))->with('success', 'Vendor Created');
+                        ->send();*/
+       //return redirect(route('vendors.index'))->with('success', 'Vendor Created');
 
         return redirect(route('uservendors.index'))->with('success', 'Vendor Updated');
     }
@@ -178,12 +178,12 @@ class VendorsController extends Controller
         $vendor = Vendor::find($id);
         $vendor->delete();
         // Send SMS
-        $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
+       /* $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
         $sms = new SMS($client);
         $sendSMS = $sms->to($vendor->vendor_tel)
                         ->from(config('app.sms_number'), 'SchoolFAQs')
                         ->message('Hello '. $vendor->user_name. '.Your shop, '. $vendor->vendor_name. ' has been deleted along with all the products as you requested. We are constantly working and hope to provide better services. Please let us know why you took this decision by filling a little anonymous form here: '. route('store.remove'). '')
-                        ->send();
+                        ->send();*/
         return redirect(route('vendors.index'))->with('success', 'Vendor Deleted');
     }
 }
