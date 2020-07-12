@@ -5,12 +5,14 @@ use Laravel\Scout\Searchable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Product extends Model
 {
     //
     use Searchable;
     use HasSlug;
+    use LogsActivity;
 
     /**
      * Get the options for generating the slug.
@@ -30,6 +32,7 @@ class Product extends Model
     public $asYouType = true;
     protected $fillable = ['product_name', 'slug', 'product_price', 'product_image', 'product_file', 'product_description', 'vendor_id', 'category_id'];
     protected $table = 'products';
+    protected static $logAttributes = ['product_name', 'product_price', 'product_image', 'product_file', 'product_description', 'vendor_id', 'category_id'];
     public function vendor() {
     	return $this->belongsTo(Vendor::class);
     }

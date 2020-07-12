@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Mediumart\Orange\SMS\SMS;
 use Mediumart\Orange\SMS\Http\SMSClient;
+use Spatie\Activitylog\Models\Activity;
 use App\Models\Vendor;
 use App\User;
 
@@ -79,6 +80,11 @@ class VendorsController extends Controller
         $vendor->vendor_image = $fileVendorImageToStore;
         $vendor->admin_name = Auth()->User()->name;
         $vendor->save();
+
+        $activity = Activity::all()->last();
+        $activity->description; 
+        $activity->subject; 
+        $activity->changes;
         // Send SMS
         /*$client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
         $sms = new SMS($client);
@@ -153,6 +159,10 @@ class VendorsController extends Controller
         $vendor->vendor_email = $request->input('vendor_email');
         $vendor->vendor_image = $fileVendorImageToStore;
         $vendor->save();
+
+        $activity = Activity::all()->last();
+        $activity->description; //returns 'updated'
+        $activity->subject; //
 
         // Send SMS
         /*$client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));

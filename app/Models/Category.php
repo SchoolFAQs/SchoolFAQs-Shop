@@ -4,6 +4,7 @@ namespace App\Models;
 use Laravel\Scout\Searchable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,7 @@ class Category extends Model
 {
 	use Searchable;
     use HasSlug;
+    use LogsActivity;
 
     public function getSlugOptions() : SlugOptions
     {

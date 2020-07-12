@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Mediumart\Orange\SMS\SMS;
 use Mediumart\Orange\SMS\Http\SMSClient;
+//use Spatie\Activitylog\Contracts\Activity;
+use Spatie\Activitylog\Models\Activity;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Vendor;
@@ -102,6 +104,11 @@ class ProductsController extends Controller
         $category_id = $request->input('category_id');
         $product->categories()->attach($category_id);
 
+        $activity = Activity::all()->last();
+        $activity->description; 
+        $activity->subject; 
+        $activity->changes; 
+
         // Send SMS
         /*$client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
         $sms = new SMS($client);
@@ -180,6 +187,10 @@ class ProductsController extends Controller
         $product->save();
         $category_id = $product->category_id;
         $product->categories()->attach($category_id);
+
+        $activity = Activity::all()->last();
+        $activity->description; //returns 'updated'
+        $activity->subject; //
 
         // Send SMS
         /*$client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));

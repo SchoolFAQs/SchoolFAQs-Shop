@@ -5,11 +5,13 @@ use Laravel\Scout\Searchable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Vendor extends Model
 {
 	use Searchable;
     use HasSlug;
+    use LogsActivity;
     //
 
     public function getSlugOptions() : SlugOptions

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Activitylog\Models\Activity;
 use App\User;
 
 class UserController extends Controller
@@ -88,6 +89,10 @@ class UserController extends Controller
         $user = User::find($id);
         $user->role = $request->input('role');
         $user->save();
+
+        $activity = Activity::all()->last();
+        $activity->description; //returns 'updated'
+        $activity->subject; //returns the instance of NewsItem that was created
         return redirect(route('user.index'))->with('success', 'Role Assigned!');
     }
 

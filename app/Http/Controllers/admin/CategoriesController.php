@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Activitylog\Models\Activity;
 use App\Models\Category;
 
 class CategoriesController extends Controller
@@ -69,6 +70,11 @@ class CategoriesController extends Controller
         $category->cover_photo = $fileImageToStore;
         $category->admin_name = Auth()->User()->name;
         $category->save();
+
+        $activity = Activity::all()->last();
+        $activity->description; 
+        $activity->subject; 
+        $activity->changes;
        
         return redirect(route('category.index'))->with('success', 'Category Created');
     }
@@ -132,6 +138,10 @@ class CategoriesController extends Controller
         $category->cover_photo = $fileImageToStore;
         $category->admin_name = Auth()->User()->name;
         $category->save();
+
+        $activity = Activity::all()->last();
+        $activity->description; //returns 'updated'
+        $activity->subject; //returns the instance of NewsItem that was created
        
         return redirect(route('category.index'))->with('success', 'Category Updated!');
     }
