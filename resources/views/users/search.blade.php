@@ -16,7 +16,7 @@
               <img class="card-img embed-responsive-item" src="/storage/product_images/{{$product->product_image}}" alt="">
               <div class="overlay">
                  <h2>{{$product->product_name}}</h2>
-                 <a class="info" href="{{ route('client.show', $product->id) }}">View Product</a>
+                 <a class="info" href="{{ route('client.show', $product->slug) }}">View Product</a>
               </div>
             </div>
             <div class="card-body">
@@ -57,7 +57,7 @@
                     <h5 class=" mt-4"><i class="fa fa-money"></i> {{number_format($product->product_price)}} FCFA</h5>
                   </div> 
 
-                  <a href="{{ route('client.show', $product->id) }}" class="btn btn-danger mt-3 text-light"><i class="fas fa-shopping-cart"></i> Buy</a>
+                  <a href="{{ route('client.show', $product->slug) }}" class="btn btn-danger mt-3 text-light"><i class="fas fa-shopping-cart"></i> Buy</a>
                 </div>
                 <h6 class="badge">Tags:</h6>
                 @foreach($product->categories as $cat)
