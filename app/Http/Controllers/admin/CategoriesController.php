@@ -90,10 +90,10 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($categories)
     {
         //
-        $category = Category::find($id);
+        $category = Category::where('slug', $categories)->first();
         return view('admin.category.category_edit', compact('category'));
     }
 

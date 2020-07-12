@@ -20,6 +20,7 @@ return [
     'client_secret' => env('CLIENT_SECRET'),
     'application_id' => env('APPLICATION_ID'),
     'rate' => env('RATE'),
+    'sms_rate' => env('SMS_RATE'),
 
     /*
     |--------------------------------------------------------------------------

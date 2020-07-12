@@ -45,6 +45,7 @@ class SmsController extends Controller
         $description = Arr::pull($o2, 'scDescription');
         $messages = Message::orderBy('created_at', 'desc')->paginate(10);
         $message_count = Message::all()->count();
+        $sms_expenditure = $message_count * config('app.sms_rate');
 
         //Admin SMS Usage
         $admin_usage_count = DB::table('messages')
@@ -52,7 +53,7 @@ class SmsController extends Controller
              ->groupBy('admin_id')
              ->get();
 
-        return view('admin.superadmin.messages.message_index', compact('messages', 'sms_units','description', 'message_count', 'admin_usage_count'));
+        return view('admin.superadmin.messages.message_index', compact('messages', 'sms_units','description', 'message_count', 'admin_usage_count', 'sms_expenditure'));
     }
 
     /**

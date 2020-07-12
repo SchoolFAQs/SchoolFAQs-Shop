@@ -65,7 +65,7 @@ class ContactController extends Controller
         $sms = new SMS($client);
         $sendSMS = $sms->to($tel)
                         ->from(config('app.sms_number'), 'SchoolFAQs')
-                        ->message(''.$ticket.' Hello '. $user_name. '. Your message has been recieved. Our team will review your message and get back to you as sooon as possible through the phone number you gave us. Thank you for trusting our services. The SchoolFAQs Management Team.')
+                        ->message(''.$ticket.' Hello '. $user_name. '. Your message has been recieved. Our team will review your message and get back to you as soon as possible through the phone number you gave us. Thank you for trusting our services. The SchoolFAQs Management Team.')
                         ->send();
         //Audit Message
         $smsaudit = new Message;

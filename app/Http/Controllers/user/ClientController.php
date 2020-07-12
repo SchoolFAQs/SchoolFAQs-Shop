@@ -194,7 +194,8 @@ class ClientController extends Controller
     {
         //
         $category = Category::orderBy('created_at', 'desc');
-        $product = Product::find($product);
+        $product = Product::where('slug', $product)->first(); 
+        //dd($product);   
         return view('users.pay', compact('product', 'category'));
     }
 

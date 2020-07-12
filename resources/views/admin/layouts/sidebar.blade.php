@@ -35,7 +35,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('user.profile', Auth()->User()->id) }}">
+            <a class="nav-link text-dark" href="{{ route('user.profile', Auth()->User()->slug) }}">
               <span><i class="fa fa-user"></i></span>
               My Profile
             </a>

@@ -58,20 +58,7 @@ class PageController extends Controller
 
         return redirect(route('admin.dashboard'))->with("success","Password changed successfully!");
      }
-     public function dashboard()
-    {
-        if((Auth::user()->password_changed_at == null)){
-            return redirect(route('changePassword'));
-        } else {
-         if((Auth::user()->role=='1')){
-           
-         } else {
-         
-        }
-        // Dashboard
-        return view('admin.dashboard');
-    }
-    }
+     
     public function index()
     {
         $order = Order::orderBy('created_at', 'desc')->paginate(10);
@@ -81,8 +68,8 @@ class PageController extends Controller
         $totalMoney = $totalMon - $totalMon * config('app.rate');
         return view('admin.orders.order_index', compact('order', 'product', 'totalMoney', 'totalOrders'));                
     }
-    public function profile ($id){
-        $profile = User::find($id);
+    public function profile ($user){
+        $profile = User::where('slug', $user)->first();
         //dd($profile);
         return view('admin.users.profile', compact('profile'));
     }

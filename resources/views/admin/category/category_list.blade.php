@@ -16,7 +16,7 @@
           		<p class="card-text">{{$category->category_description}}</p>
               <hr>          		
           		<div class="d-flex justify-content-between align-items-center">
-          			<a href="{{ route('category.edit', $category->id) }}" class="btn btn-dark mt-2 text-light"><i class="fas fa-edit"></i> Edit</a>
+          			<a href="{{ route('category.edit', $category->slug) }}" class="btn btn-dark mt-2 text-light"><i class="fas fa-edit"></i> Edit</a>
                 <form action="{{ route('category.destroy', $category->id) }}" method="POST" class="d-inline">
                   <input type="hidden" name="_method" value="DELETE">
                   <button class="btn btn-danger">Delete</button>

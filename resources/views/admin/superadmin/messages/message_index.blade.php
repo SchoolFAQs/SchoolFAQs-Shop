@@ -9,7 +9,7 @@
      			</div>
      			<div class="card-body">
      				<h4>
-     					{{$sms_units}} SMS Left
+     					{{number_format($sms_units)}} SMS Left
      				</h4>
      				<p>{{$description}}</p>
      			</div>
@@ -22,8 +22,13 @@
      			</div>
      			<div class="card-body">
      				<h4>
-     					{{number_format($message_count)}} Messages
+     					{{number_format($message_count)}} Message(s)
+                              
+                               
      				</h4>
+                         <div>
+                             <p>Amount Spent: <i class="fas fa-money-bill"></i> {{number_format($sms_expenditure)}} FCFA </p>
+                         </div>
      			</div>
      		</div>
      	</div>
@@ -33,11 +38,12 @@
                          <h3>ADMIN SMS USAGE <i class="fa fa-envelope"></i></h3>
                     </div>
                     <div class="card-body">
-                         <table class="table">
+                         <table class="table overflow-auto">
                               <thead>
                                    <tr>
                                         <th>Name</th>
                                         <th>Count</th>
+                                        <th>Amount</th>
                                    </tr>
                               </thead>
                               @foreach($admin_usage_count as $ac)
@@ -58,6 +64,7 @@
                                              @endif
                                         </td>
                                         <td>{{$ac->total}}</td>
+                                        <td>{{number_format($ac->total * config('app.sms_rate'))}} FCFA</td>
                                    </tr>
                               </tbody>
                               @endforeach
@@ -89,6 +96,12 @@
      			@if($message->admin_id != Auth()->User()->id)
      				{{$message->admin_id}}
      			@endif
+                     @if($message->admin_id != '1' && $message->admin_id != 'System')
+                                                  <?php
+                                                       $user = \App\User::find($message->admin_id);
+                                                  ?>
+                                                       {{ $user->name }}
+                                             @endif
      			</td>
      			<td>{{$message->message_type}}</td>
      			<td>{{$message->message_purpose}}</td>

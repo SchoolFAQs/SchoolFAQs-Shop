@@ -21,7 +21,7 @@
           		@endforeach
               <hr>          		
           		<div class="d-flex justify-content-between align-items-center">
-          			<a href="{{ route('products.edit', $product->id) }}" class="btn btn-dark mt-2 text-light"><i class="fas fa-edit"></i> Edit</a>
+          			<a href="{{ route('products.edit', $product->slug) }}" class="btn btn-dark mt-2 text-light"><i class="fas fa-edit"></i> Edit</a>
                 <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline">
                   <input type="hidden" name="_method" value="DELETE">
                   <button class="btn btn-danger">Delete</button>

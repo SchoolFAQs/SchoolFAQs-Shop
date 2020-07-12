@@ -18,6 +18,7 @@ class CreateVendorsTable extends Migration
             $table->string('user_name');
             $table->string('vendor_email');
             $table->string('vendor_name');
+            $table->string('slug')->unique();
             $table->string('vendor_image');
             $table->string('vendor_tel');
             $table->string('vendor_about');

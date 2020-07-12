@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
- <div>
- 	<h1>HELLO ADMIN</h1>
- </div>
+	<div>
+		<h5>HELLO {{Auth()->User()->name}}</h5>
+		    
+	</div>
 @endsection

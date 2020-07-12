@@ -12,6 +12,7 @@
 						</div>
 						<div class="mb-5">
 							@yield('content')
+							@yield('javascript')
 						</div>
 						
 

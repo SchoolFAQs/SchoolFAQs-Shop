@@ -25,7 +25,7 @@
               <td><i class="fas fa-calendar-day"></i> {{$vendor->created_at}}</td>
               <td><i class="fas fa-users"></i> {{$vendor->admin_name}}</td>
               <td><div class="d-flex justify-content-between align-items-center">
-                <a href="{{ route('uservendors.edit', $vendor->id) }}" class="btn btn-dark mt-2 text-light"><i class="fas fa-edit"></i> Edit</a>
+                <a href="{{ route('uservendors.edit', $vendor->slug) }}" class="btn btn-dark mt-2 text-light"><i class="fas fa-edit"></i> Edit</a>
                 <form action="{{ route('uservendors.destroy', $vendor->id) }}" method="POST" class="d-inline">
                   <input type="hidden" name="_method" value="DELETE">
                   <button class="btn btn-danger">Delete</button>

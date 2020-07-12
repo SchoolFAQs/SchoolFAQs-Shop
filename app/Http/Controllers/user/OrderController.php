@@ -103,12 +103,12 @@ class OrderController extends Controller
         $smsaudit->message_purpose = 'Product Sale';
         $smsaudit->customer_name = $order->customer_name;
         $smsaudit->customer_tel = $order->customer_tel;
-        $smsaudit->save();
+        $smsaudit->save(); 
         // Return Download Link
          $urli = URL::temporarySignedRoute('index.download', now()->addHours(1), [
                 'id' => $order->product_id, 
                 'od' => $order->id 
-            ]);
+            ]); 
        return redirect($urli)->with('success', 'Order Created');
        
         // Create Payment

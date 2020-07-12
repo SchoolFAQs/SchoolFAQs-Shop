@@ -20,7 +20,7 @@ Route::domain('admin.'. config('app.domain'))->group(function () {
         Route::get('/changepassword','PageController@showChangePasswordForm')->name('changePassword');;
         Route::post('/changepassword','PageController@changePassword')->name('change-password');
         // Default Dashboard
-        Route::get('dashboard', 'PageController@dashboard')->name('admin.dashboard');
+        Route::get('/', 'DashboardController@dashboard')->name('admin.dashboard');
         Route::get('vieworder', 'PageController@index')->name('page.index');
         Route::resource('products','ProductsController');
         Route::resource('store', 'StoreController');

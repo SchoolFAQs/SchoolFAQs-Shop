@@ -130,10 +130,10 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($products)
     {
         //
-        $product = Product::find($id);
+        $product = Product::where('slug', $products)->first();
         return view('admin.products.product_edit', compact('product'));
     }
 

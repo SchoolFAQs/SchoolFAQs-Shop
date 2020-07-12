@@ -27,6 +27,7 @@
         "malico/momo": "^2.2",
         "mediumart/orange": "dev-dev-mg",
         "spatie/laravel-activitylog": "^3.14",
+        "spatie/laravel-sluggable": "^2.5",
         "teamtnt/laravel-scout-tntsearch-driver": "^9.0",
         "teamtnt/tntsearch": "^2.3"
     },

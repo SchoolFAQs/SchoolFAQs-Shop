@@ -34,6 +34,7 @@
 		<thead>
 			<tr>
 				<th>Product Name</th>
+                    <th>Product Price</th>
 				<th>Order Date</th>
 				<th>Shop</th>
 			</tr>
@@ -43,6 +44,7 @@
 					<tbody class="table-light text-dark">
 						<tr>
 							<td><i class="fas fa-book"></i> {{$o->product_name}}</td>
+                                   <td><i class="fas fa-money-bill"></i> {{number_format($o->product_price)}} FCFA</td>
 							<td><i class="far fa-calender"></i> {{$o->created_at}}</td>
 							@foreach($product as $p)
 								@if($o->product_id == $p->id)
