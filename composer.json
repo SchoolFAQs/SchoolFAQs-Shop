@@ -24,7 +24,6 @@
         "laravel/scout": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "malico/momo": "^2.2",
         "mediumart/orange": "dev-dev-mg",
         "spatie/laravel-activitylog": "^3.14",
         "spatie/laravel-sluggable": "^2.5",

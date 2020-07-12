@@ -8,7 +8,6 @@ use Storage;
 use Illuminate\Support\Facades\URL;
 use Mediumart\Orange\SMS\SMS;
 use Mediumart\Orange\SMS\Http\SMSClient;
-use Malico\Momo\Support\MomoTransaction;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Sale;
@@ -111,20 +110,6 @@ class OrderController extends Controller
             ]); 
        return redirect($urli)->with('success', 'Order Created');
        
-        // Create Payment
-        //$sale = new Sale;
-        //$sale->pay($order->customer_tel, $order->product_price);
-        
-        //if ($sale->momo_transaction->status) {
-           // Session::put('purchased_download_id', $download->id);
-           // return Redirect::to('download');
-            //$download = Order::find(Session::get(''))
-            //return view('download')->with('success', 'Thank you, Payment Received');
-       // }  else {
-            //Payment was unsucessful;
-         //   return view('failed_payment', ['message' => $sale->momo_transaction->desc])->with('error', 'The payment did not go through');
-       // }
-        //return dd($order, $sale);
     }
 
     /**

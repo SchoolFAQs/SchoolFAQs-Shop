@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "08d3f12fd9a71b02e3a13469c9c58572",
+    "content-hash": "786de72b1cd13fbec713ba98fed5aad2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1266,64 +1266,6 @@
                 }
             ],
             "time": "2020-05-18T15:13:39+00:00"
-        },
-        {
-            "name": "malico/momo",
-            "version": "2.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/malicoo/momo.git",
-                "reference": "60a5609acee53460899b1fe9d36ad5abe89efec3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/malicoo/momo/zipball/60a5609acee53460899b1fe9d36ad5abe89efec3",
-                "reference": "60a5609acee53460899b1fe9d36ad5abe89efec3",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^6.3",
-                "illuminate/database": "~5.7|^6.0|^7.0",
-                "illuminate/support": "~5.7|^6.0|^7.0",
-                "php": "^7.1"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Malico\\Momo\\Support\\MomoServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Malico\\Momo\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ndifon Desmond Yong",
-                    "email": "malico.yong@gmail.com"
-                }
-            ],
-            "description": "Laravel Addon to ease MTN mobile payment.",
-            "keywords": [
-                "Cameroon",
-                "Desmond ",
-                "MTN Cameroon",
-                "Yong",
-                "laravel",
-                "mobile money",
-                "momo",
-                "mtn",
-                "payment"
-            ],
-            "abandoned": true,
-            "time": "2020-04-10T20:24:16+00:00"
         },
         {
             "name": "mediumart/orange",

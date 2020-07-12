@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::domain(config('app.domain'))->group( function() {
+Route::domain('shop.'. config('app.domain'))->group(function () {
 	Route::get('order/{id}/download/{od}/product', 'OrderController@download')->name('order.download')->middleware('signed');
 	Route::get('index/{id}/{od}', 'OrderController@index')->name('index.download')->middleware('signed');
 	Route::get('/', 'ClientController@index')->name('welcome');
