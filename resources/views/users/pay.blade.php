@@ -9,7 +9,13 @@
     		      <label><h6>Name</h6></label>
     		      <input type="text" class="form-control my-2 py-3" name="customer_name" placeholder="Your Name">
     		      <label><h6>Mobile Money Number</h6></label>
-    		      <input type="text" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" class="form-control my-2 py-3" name="customer_tel" placeholder="example: 681108107">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">+237</span>
+                </div>
+                <input type="text" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" class="form-control my-2 py-3" name="customer_tel" placeholder="681108107">
+              </div>
+    		      
     		      <label><h6>Product Name </h6></label>
               <input type="text" value="{{$product->product_name}}" readonly="" class="form-control my-2 py-3" name="product_name" placeholder="{{$product->product_name}}">
     		      <label><h6>Total Price </h6></label>

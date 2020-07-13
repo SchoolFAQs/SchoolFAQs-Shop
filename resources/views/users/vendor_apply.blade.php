@@ -3,7 +3,7 @@
 <h1 class="text-center mt-4">
     Fill the Form Below
 </h1>
-
+<p class="text-center">Fields marked with a <strong>*</strong> are compulsory!</p>
 <hr>
 <div class="d-flex justify-content-around">
 
@@ -29,15 +29,16 @@
                 <input type="Date" required class="form-control border-bottom input-phone my-1" name="date_of_birth">
                 <small class="form-text text-muted">Your Date of Birth</small>
             </div>
-
-            <div class="mb-3">
-                <label for="tel">
-                    <strong>* <i class="fas fa-phone-alt"></i> Phone number:</strong>
-                </label>
-                <input type="tel" placeholder="681108107" required class="form-control border-bottom input-phone my-1" name="user_tel">
-                <small class="form-text text-muted">It should be your mobile money number too.</small>
+            <label for="tel">
+                <strong>* <i class="fas fa-phone-alt"></i> Phone number:</strong>
+            </label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">+237</span>
+                </div>
+                <input type="tel" placeholder="681108107" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" required class="form-control border-bottom input-phone my-1" name="user_tel">  
             </div>
-
+            <small class="form-text text-muted mb-3">It should be your mobile money number too.</small>
             <div class="mb-3">
                 <label for="id_card"><strong>* <i class="fas fa-id-card"></i> Upload your ID Card below (both front and back):</strong></label>
                 <input type="file" class="form-control-file border-bottom" name="id_card">

@@ -16,7 +16,12 @@
 		   		</div>
 		   		<div>
 		   			<label for="tel" class="col-form-label">Phone Number</label>
-		   			<input type="text" name="user_tel" class="form-control">
+		   		</div>
+		   		<div class="input-group">
+		   			<div class="input-group-prepend">
+					    <span class="input-group-text" id="basic-addon1">+237</span>
+					  </div>
+		   			<input type="text" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" placeholder="681108107" name="user_tel" class="form-control">
 		   		</div>
 		   		<div>
 		   			<label for="name" class="col-form-label">Message</label>
