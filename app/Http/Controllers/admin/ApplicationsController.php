@@ -82,8 +82,8 @@ class ApplicationsController extends Controller
             $mykyc = storage_path("app\public\applications\\{$application->user_name}\\{$application->kyc_form}");
          // PDF Header
             $headers = ['Content-Type: application/pdf'];
-         return response()->file($mykyc, $headers); */    
-    }
+         return response()->file($mykyc, $headers);     
+    }*/
     /**
      * Show the form for editing the specified resource.
      *
