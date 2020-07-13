@@ -53,7 +53,7 @@
             </div>
 
 
-            <div class="mb-3">
+            {{--<div class="mb-3">
                 <label for="form_b">
                     <strong>* <i class="fas fa-image"></i> Download and fill the KYC form below and re-upload it:</strong>
                 </label>
@@ -62,7 +62,7 @@
                 </div>
                 <input type="file" class="form-control-file border-bottom" name="kyc_form">
                 <small class="form-text text-muted">MAX size = 2MB (must be pdf)</small>
-            </div>
+            </div>--}}
 
             <div class="d-flex justify-content-end">
                 <a href="{{ route('welcome') }}" class="btn mr-2 rounded-pill btn-danger">Cancel</a>

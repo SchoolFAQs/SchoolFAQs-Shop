@@ -59,8 +59,8 @@ class ClientController extends Controller
             'user_tel' => 'required',
             'date_of_birth' => 'required',
             'id_card' => 'required|mimetypes:application/pdf',
-            'license' => 'sometimes|mimetypes:application/pdf',
-            'kyc_form' => 'required|mimetypes:application/pdf'
+            'license' => 'sometimes|mimetypes:application/pdf'
+            //'kyc_form' => 'required|mimetypes:application/pdf'
         ]);
         $apply = new Apply;
         $apply->user_name = $request->input('user_name');
@@ -91,7 +91,7 @@ class ClientController extends Controller
         }
 
         //Save KYF File
-        if($request->hasFile('kyc_form')){
+        /*if($request->hasFile('kyc_form')){
             //Get just extenstion
             $extension = $request->file('kyc_form')->getClientOriginalExtension();
             //File Name to store
@@ -101,14 +101,14 @@ class ClientController extends Controller
 
         } else {
                 $kycName = 'noimage.jpg';
-        }
+        }*/
   
         $apply->user_email = $request->input('user_email');
         $apply->user_tel = '+237'.$request->input('user_tel');
         $apply->date_of_birth = $request->input('date_of_birth');
         $apply->id_card = $idCardName;
         $apply->license = $licenseName;
-        $apply->kyc_form = $kycName;
+        //$apply->kyc_form = $kycName;
         $apply->save();
         return view('users.vendorApply')->with('success', 'Application Sent');
     }

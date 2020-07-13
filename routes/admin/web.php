@@ -37,7 +37,7 @@ Route::domain('shop.'. config('app.domain'))->group(function () {
 					Route::resource('applications', 'ApplicationsController');
 					Route::get('idcard/{id}', 'ApplicationsController@view_id')->name('applications.idcard');
 					Route::get('license/{id}', 'ApplicationsController@view_license')->name('applications.license');
-					Route::get('kyc/{id}', 'ApplicationsController@view_kyc')->name('applications.kyc');
+					//Route::get('kyc/{id}', 'ApplicationsController@view_kyc')->name('applications.kyc');
 					Route::put('approve/{id}', 'ApplicationsController@approve')->name('applications.approve');
 					Route::put('reject/{id}', 'ApplicationsController@reject')->name('applications.reject');
 				});	
