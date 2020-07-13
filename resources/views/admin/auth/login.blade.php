@@ -11,7 +11,7 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <form method="POST" action="{{ route('login') }}" class="user">
-                                    @csrf
+                                   @csrf
 
                                     <div class="form-group">
                                         <div class="form-group">
