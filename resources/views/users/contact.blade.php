@@ -2,7 +2,7 @@
 @section('content')
 	<div class="card border-0 shadow container py-4">
 		<main class="card-body card-title">
-		   <h1 class="display-4 text-center">HAVE A PROBLEM?</h1>
+		   <h2 class="text-center">HAVE A PROBLEM?</h2>
 		   <p class="lead text-center text-muted">Send us a message below.</p>
 		   <div class="card">
 		   	<div class="card-header">
