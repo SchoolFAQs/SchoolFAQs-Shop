@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
       <div class="my-3 col img-thumbnail">
-        <h5 class="card-title text-center display-5">Payment Form<br> <img src="{{ asset('mtn_checkout.png') }}"> | <img class="rounded-circle" src="{{ asset('orange_checkout.png') }}"> </h5>
+        <h5 class="card-title text-center display-5">Payment Form<br> <img src="{{ asset('mtn_checkout.png') }}"> {{--| <img class="rounded-circle" src="{{ asset('orange_checkout.png') }}">--}} </h5>
         <div class="card-body">
           <form method="POST" action="{{ route('order.store') }}" class="form-group">
     		      <label><h6>Name</h6></label>
