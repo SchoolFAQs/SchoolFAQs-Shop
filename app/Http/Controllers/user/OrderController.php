@@ -51,7 +51,7 @@ class OrderController extends Controller
         $order->downloaded_at = \Carbon\Carbon::now();
         $order->save();
         //$order = Order::find($od);
-        $myFile = storage_path("app\public\products\\{$product->product_file}"); 
+        $myFile = storage_path("app/public/products/{$product->product_file}"); 
         $headers = ['Content-Type: application/pdf'];
         $newName = 'SchoolFAQs_'.$product->id.'-'.$product->product_name.'.pdf';
         //dd($myFile);
