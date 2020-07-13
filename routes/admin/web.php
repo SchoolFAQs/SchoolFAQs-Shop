@@ -44,7 +44,7 @@ Route::domain('shop.'. config('app.domain'))->group(function () {
 			
 				// SuperAdmin Routes
 				Route::middleware(['superAdmin'])->group(function() {
-					Route::resource('adminproducts','SuperAdminProductsController');
+					Route::resource('adminproducts','SuperadminProductsController');
 					Route::get('adminvendors/{id}', 'SuperAdminVendorController@create')->name('vendors.create');
 					Route::resource('adminvendors', 'SuperAdminVendorController', ['except' => ['create']]);
 					Route::resource('user', 'UserController');
