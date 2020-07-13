@@ -17,7 +17,7 @@
       <div class="carousel-inner">
       @foreach( $category as $cat )
         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-          <img src="/storage/category_images/{{$cat->cover_photo}}" alt="{{ $cat->category_name }}" height="500" width="1150">
+          <img class="d-block w-100" src="/storage/category_images/{{$cat->cover_photo}}" alt="{{ $cat->category_name }}">
           <div class="black-overlay"></div>
           <div class="carousel-caption d-none d-md-block">
               <h3 class="text-light p-1 rounded text-left">{{ $cat->category_name }}</h3>
