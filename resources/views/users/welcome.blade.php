@@ -74,7 +74,12 @@
                   <span>
                     @foreach($order_count as $order)
                       @if($product->id == $order->product_id)
-                        <h6 class="text-muted">Orders: {{$order->total}}</h6>
+                        @if($product->product_price != 0)
+                          <h6 class="text-muted">Orders: {{$order->total}}</h6>
+                          @endif
+                        @if($product->product_price == 0)
+                          <h6 class="text-muted">Downloads: {{$order->total}}</h6>
+                        @endif
                       @endif
                     @endforeach
                   </span>
