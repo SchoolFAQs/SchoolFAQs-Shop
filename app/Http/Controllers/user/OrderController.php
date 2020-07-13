@@ -85,7 +85,10 @@ class OrderController extends Controller
         $order->vendor_email = $request->input('vendor_email');
         $order->save();
         $order->products()->attach($order->product_id);
-        // Send SMS
+
+        //send sms only if product is not free
+        if($order->product_price != 0) {
+            // Send SMS
         $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
         $sms = new SMS($client);
        $url = URL::temporarySignedRoute('order.download', now()->addHours(24), [
@@ -102,13 +105,21 @@ class OrderController extends Controller
         $smsaudit->message_purpose = 'Product Sale';
         $smsaudit->customer_name = $order->customer_name;
         $smsaudit->customer_tel = $order->customer_tel;
-        $smsaudit->save(); 
+        $smsaudit->save();
         // Return Download Link
          $urli = URL::temporarySignedRoute('index.download', now()->addHours(1), [
                 'id' => $order->product_id, 
                 'od' => $order->id 
-            ]); 
-       return redirect($urli)->with('success', 'Order Created');
+            ]);
+         return redirect($urli)->with('success', 'Order Created');
+         
+        } else {
+             $urli = URL::temporarySignedRoute('index.download', now()->addHours(1), [
+                'id' => $order->product_id, 
+                'od' => $order->id 
+            ]);
+             return redirect($urli)->with('success', 'Order Created');
+        }
        
     }
 
