@@ -31,7 +31,7 @@ class TotalOrdersController extends Controller
         $totalMon = Order::sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
         $vat = config('app.vat_rate');
-        $vat_value =  $totalMon - $totalMon/$vat
+        $vat_value =  $totalMon - $totalMon/$vat;
         return view('admin.superadmin.orders.total_orders', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat_value', 'vat'));
     }
     public function today_sales()
@@ -57,7 +57,7 @@ class TotalOrdersController extends Controller
         $totalMon = Order::whereMonth('created_at', Carbon::now()->month)->sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
         $vat = config('app.vat_rate');
-        $vat_value =  $totalMon - $totalMon/$vat;;
+        $vat_value =  $totalMon - $totalMon/$vat;
         return view('admin.superadmin.orders.month_sales', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat_value', 'vat'));
     }
 
