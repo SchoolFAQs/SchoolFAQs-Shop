@@ -61,7 +61,7 @@ class ContactController extends Controller
         $user_name = $request->input('user_name');
         $tel = '+237'.$request->input('user_tel');
         // Send SMS
-        $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
+        /*$client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
         $sms = new SMS($client);
         $sendSMS = $sms->to($tel)
                         ->from(config('app.sms_number'), 'SchoolFAQs')
@@ -73,7 +73,7 @@ class ContactController extends Controller
         $smsaudit->message_purpose = 'Contact CS';
         $smsaudit->customer_name = $user_name;
         $smsaudit->customer_tel = $tel;
-        $smsaudit->save();
+        $smsaudit->save(); */
         //Redirect Users
         return view('users.message_received', compact('ticket', 'message', 'user_name'))->with('success', 'Your message has been recieved.');
     }
