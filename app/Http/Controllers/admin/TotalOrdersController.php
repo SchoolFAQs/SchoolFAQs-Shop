@@ -30,7 +30,7 @@ class TotalOrdersController extends Controller
         $totalOrders = Order::count();
         $totalMon = Order::sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
-        $vat = config('app.vat_rate');
+        $vat = env('VAT_RATE');
         dd($vat, $totalMon, $totalMoney);
         $vat_value =  $totalMon - $totalMon/$vat;
         return view('admin.superadmin.orders.total_orders', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat_value', 'vat'));
