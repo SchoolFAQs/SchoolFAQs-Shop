@@ -21,6 +21,7 @@ return [
     'application_id' => env('APPLICATION_ID'),
     'rate' => env('RATE'),
     'sms_rate' => env('SMS_RATE'),
+    'vat_rate' => env('VAT_RATE'),
 
     /*
     |--------------------------------------------------------------------------

@@ -7,11 +7,11 @@
       <tr>
         <th>Orders</th>
         <th>Product Name</th>
-        <th>Price</th>
+        <th>Price (FCFA)</th>
+        <th>VAT (FCFA)</th>
         <th>Vendor</th>
         <th>Owner</th>
         <th>Date Created</th>
-        <th>Created By</th>
         <th>Featured</th>
         <th>Best Seller</th>
         <th>Action</th>
@@ -32,11 +32,11 @@
                   @endforeach
               </td>
               <td><i class="fas fa-book"></i> {{$product->product_name}}</td>
-              <td><i class="fas fa-money-bill"></i> {{$product->product_price}}</td>
+              <td><i class="fas fa-money-bill"></i> {{number_format($vat*$product->product_price)}}</td>
+              <td><i class="fas fa-money-bill"></i> {{number_format($vat*$product->product_price - $product->product_price)}}</td>
               <td><i class="fas fa-store"></i> {{$product->vendor->vendor_name}}</td>
               <td><i class="fas fa-user"></i> {{$product->vendor->user_name}}</td>
               <td><i class="fas fa-calendar-day"></i> {{$product->created_at}}</td>
-              <td><i class="fas fa-user"></i> {{$product->admin_name}}</td>
 
               @if($product->featured == 1)
               <td><i class="fas fa-star"></i> FEATURED</td>

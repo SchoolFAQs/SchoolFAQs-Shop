@@ -38,8 +38,8 @@ class SuperadminProductsController extends Controller
              ->groupBy('product_id')
              ->get();
         //dd($orders);
-        
-        return view('admin.superadmin.products.product_list', compact('products', 'orders'));
+        $vat = config('app.vat_rate');
+        return view('admin.superadmin.products.product_list', compact('products', 'orders', 'vat'));
     }
 
     /**

@@ -66,7 +66,9 @@ class PageController extends Controller
         $totalOrders = Order::where('vendor_email' , Auth()->User()->email)->count();
         $totalMon = Order::where('vendor_email' , Auth()->User()->email)->sum('product_price');
         $totalMoney = $totalMon - $totalMon * config('app.rate');
-        return view('admin.orders.order_index', compact('order', 'product', 'totalMoney', 'totalOrders'));                
+        $vat_value =  $totalMon - $totalMon/config('app.vat_rate');
+        $vat = config('app.vat_rate');
+        return view('admin.orders.order_index', compact('order', 'product', 'totalMoney', 'totalOrders', 'vat', 'vat_value'));                
     }
     public function profile ($user){
         $profile = User::where('slug', $user)->first();

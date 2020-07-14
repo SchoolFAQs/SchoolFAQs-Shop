@@ -41,6 +41,18 @@
                     </div>
                </div>
           </div>
+          <div class="col col-lg col-sm-2">
+               <div class="card">
+                    <div class="card-header">
+                         <h1>VAT <i class="fa fa-money"></i></h1>
+                    </div>
+                    <div class="card-body text-success">
+                         <h2>
+                              {{number_format($vat_value)}} FCFA
+                         </h2>
+                    </div>
+               </div>
+          </div>
     </div>
                                         
 	<table class="table table-dark">

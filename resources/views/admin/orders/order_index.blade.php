@@ -25,7 +25,6 @@
      			</div>
      		</div>
      	</div>
-    
     </div>
                         
                    
@@ -34,7 +33,10 @@
 		<thead>
 			<tr>
 				<th>Product Name</th>
-                    <th>Product Price</th>
+                    <th>Total Price (FCFA)</th>
+                    <th>NET Price (FCFA)</th>
+                    <th>VAT (FCFA)</th>
+                    <th>Income</th>
 				<th>Order Date</th>
 				<th>Shop</th>
 			</tr>
@@ -44,7 +46,11 @@
 					<tbody class="table-light text-dark">
 						<tr>
 							<td><i class="fas fa-book"></i> {{$o->product_name}}</td>
-                                   <td><i class="fas fa-money-bill"></i> {{number_format($o->product_price)}} FCFA</td>
+                                   <td><i class="fas fa-money-bill"></i> {{number_format($o->product_price)}}</td>
+                                   <td><i class="fas fa-money-bill"></i> {{number_format($o->product_price/$vat)}}</td>
+                                   <td><i class="fas fa-money-bill"></i> {{number_format($o->product_price - $o->product_price/$vat)}}</td>
+                                   <td><i class="fas fa-money-bill"></i> {{number_format($o->product_price/$vat - (($o->product_price/$vat) * config('app.rate')))}}</td>
+                                   
 							<td><i class="far fa-calender"></i> {{$o->created_at}}</td>
 							@foreach($product as $p)
 								@if($o->product_id == $p->id)

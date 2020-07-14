@@ -31,7 +31,8 @@ class ClientController extends Controller
              ->groupBy('product_id')
              ->get();
         $products = Product::orderBy('best_seller', 'desc')->orderBy('featured', 'desc')->paginate(6);
-        return view('users.welcome', compact('products', 'category', 'order_count'));
+        $vat = config('app.vat_rate');
+        return view('users.welcome', compact('products', 'category', 'order_count', 'vat'));
     }
 
     /**
@@ -147,8 +148,9 @@ class ClientController extends Controller
         //$categorySearch = Category::search($request->input('search'))->get();
         $search = $request->input('search');
         $category = Category::orderBy('created_at', 'desc');
+        $vat = config('app.vat_rate');
         //dd($productSearch);
-        return view('users.search', compact('productSearch', 'search', 'category', 'order_count'));
+        return view('users.search', compact('productSearch', 'search', 'category', 'order_count', 'vat'));
 
     }
     public function category_search(Request $request)
@@ -169,7 +171,8 @@ class ClientController extends Controller
              ->groupBy('product_id')
              ->get();
         $category = Category::orderBy('created_at', 'desc');
-        return view('users.category_search', compact('categorySearch','search', 'category', 'order_count'));
+        $vat = config('app.vat_rate');
+        return view('users.category_search', compact('categorySearch','search', 'category', 'order_count', 'vat'));
 
     }
 
@@ -194,9 +197,10 @@ class ClientController extends Controller
     {
         //
         $category = Category::orderBy('created_at', 'desc');
-        $product = Product::where('slug', $product)->first(); 
+        $product = Product::where('slug', $product)->first();
+        $vat = config('app.vat_rate'); 
         //dd($product);   
-        return view('users.pay', compact('product', 'category'));
+        return view('users.pay', compact('product', 'category', 'vat'));
     }
 
     /**

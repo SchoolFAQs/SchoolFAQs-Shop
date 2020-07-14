@@ -59,7 +59,7 @@
                 
                 <div class="buy d-flex justify-content-between align-items-center">
                   <div class="price text-success">
-                    <h5 class=" mt-4"><i class="fa fa-money"></i> {{number_format($product->product_price)}} FCFA</h5>
+                    <h5 class=" mt-4"><i class="fa fa-money"></i> {{number_format($product->product_price * $vat)}} FCFA</h5>
                   </div> 
 
                   <a href="{{ route('client.show', $product->slug) }}" class="btn btn-danger mt-3 text-light"><i class="fas fa-shopping-cart"></i> Buy</a>
