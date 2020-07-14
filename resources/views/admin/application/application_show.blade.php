@@ -21,7 +21,7 @@
 							<a href="{{ route('applications.idcard', $application->id) }}" target="_blank" class="btn btn-primary"><i class="fas fa-eye"></i> View ID CARD</a>
 						</div>
 						<div class="mx-1">
-							@if($application->license != NULL)
+							@if($application->license != 'noimage.jpg')
 							<a href="{{ route('applications.license', $application->id) }}" target="_blank" class="btn btn-primary"><i class="fas fa-eye"></i> View License</a>
 							@endif
 						</div>
