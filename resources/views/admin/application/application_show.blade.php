@@ -25,9 +25,9 @@
 							<a href="{{ route('applications.license', $application->id) }}" target="_blank" class="btn btn-primary"><i class="fas fa-eye"></i> View License</a>
 							@endif
 						</div>
-						<div class="mx-1">
+						{{--<div class="mx-1">
 							<a href="{{ route('applications.kyc', $application->id) }}" target="_blank" class="btn btn-primary"><i class="fas fa-eye"></i> View KYC FORM</a>
-						</div>
+						</div>--}}
 					<div class="mx-1">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sendMessage">
 					  		<i class="fas fa-envelope"></i> Send Message
