@@ -61,7 +61,7 @@ class ApplicationsController extends Controller
     {
             $application = Apply::find($id);
         // Fetch ID CARD
-            $myIDCARD = storage_path("app\public\applications\\{$application->user_name}\\{$application->id_card}");
+            $myIDCARD = storage_path("app/public/applications/{$application->user_name}/{$application->id_card}");
          // PDF Header
             $headers = ['Content-Type: application/pdf'];
          return response()->file($myIDCARD, $headers);
@@ -70,7 +70,7 @@ class ApplicationsController extends Controller
     {
             $application = Apply::find($id);
         //Fetch License
-            $myLicense = storage_path("app\public\applications\\{$application->user_name}\\{$application->license}");
+            $myLicense = storage_path("app/public/applications/{$application->user_name}/{$application->license}");
          // PDF Header
             $headers = ['Content-Type: application/pdf'];
          return response()->file($myLicense, $headers);
