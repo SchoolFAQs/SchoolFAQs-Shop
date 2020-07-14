@@ -21,7 +21,7 @@ class CreateAppliesTable extends Migration
             $table->string('user_tel');
             $table->string('id_card');
             $table->string('license');
-            $table->string('kyc_form');
+            $table->string('kyc_form')->nullable()->change();
             $table->integer('is_approve')->nullable();
             $table->integer('is_reject')->nullable();
             $table->string('admin_name')->nullable();
