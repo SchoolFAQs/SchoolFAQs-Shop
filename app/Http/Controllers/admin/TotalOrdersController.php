@@ -30,8 +30,8 @@ class TotalOrdersController extends Controller
         $totalOrders = Order::count();
         $totalMon = Order::sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
-         $vat_value =  $totalMon - $totalMon/config('app.vat_rate');
         $vat = config('app.vat_rate');
+        $vat_value =  $totalMon - $totalMon/$vat
         return view('admin.superadmin.orders.total_orders', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat_value', 'vat'));
     }
     public function today_sales()
@@ -43,8 +43,8 @@ class TotalOrdersController extends Controller
         $totalOrders = Order::whereDate('created_at', date('Y-m-d'))->count();
         $totalMon = Order::whereDate('created_at', date('Y-m-d'))->sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
-        $vat_value =  $totalMon - $totalMon/config('app.vat_rate');
         $vat = config('app.vat_rate');
+        $vat_value =  $totalMon - $totalMon/$vat;  
         return view('admin.superadmin.orders.today_sales', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat', 'vat_value'));
     }
     public function month_sales()
@@ -56,8 +56,8 @@ class TotalOrdersController extends Controller
         $totalOrders = Order::whereMonth('created_at', Carbon::now()->month)->count();
         $totalMon = Order::whereMonth('created_at', Carbon::now()->month)->sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
-        $vat_value =  $totalMon - $totalMon/config('app.vat_rate');
         $vat = config('app.vat_rate');
+        $vat_value =  $totalMon - $totalMon/$vat;;
         return view('admin.superadmin.orders.month_sales', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat_value', 'vat'));
     }
 
@@ -70,8 +70,8 @@ class TotalOrdersController extends Controller
         $totalOrders = Order::where('created_at','>=',Carbon::now()->subdays(60))->count();
         $totalMon = Order::where('created_at','>=',Carbon::now()->subdays(60))->sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
-        $vat_value =  $totalMon - $totalMon/config('app.vat_rate');
         $vat = config('app.vat_rate');
+        $vat_value =  $totalMon - $totalMon/$vat;
         return view('admin.superadmin.orders.quarter_sales', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat', 'vat_value'));
     }
 
@@ -84,8 +84,8 @@ class TotalOrdersController extends Controller
         $totalOrders = Order::whereYear('created_at', Carbon::now()->year)->count();
         $totalMon = Order::whereYear('created_at', Carbon::now()->year)->sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
-        $vat_value =  $totalMon - $totalMon/config('app.vat_rate');
         $vat = config('app.vat_rate');
+        $vat_value =  $totalMon - $totalMon/$vat;
         return view('admin.superadmin.orders.year_sales', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat', 'vat_value'));
     }
 
