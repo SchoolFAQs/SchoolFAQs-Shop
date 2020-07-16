@@ -30,7 +30,8 @@ class OrderController extends Controller
                 'od' => $order->id 
             ]);
         //dd($product->product_name,$order);
-        return view('users.successful_payment', compact('product', 'order', 'url'));
+        $vat = config('app.vat_rate');
+        return view('users.successful_payment', compact('product', 'order', 'url', 'vat'));
     }
 
     /**

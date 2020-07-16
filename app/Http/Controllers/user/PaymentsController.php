@@ -36,7 +36,7 @@ class PaymentsController extends Controller
         $transactId = time().$request->input('product_id');
         $product_name = $request->input('product_name');             
 		$product_price = $request->input('product_price');
-		$customer_tel = $request->input('customer_tel');
+		$customer_tel = '237'.$request->input('customer_tel');
 
     	$collection = new Collection();
 		$momoTransactionId = $collection->requestToPay($transactId, $customer_tel, $product_price, 'SchoolFAQs Product', 'Payment for '.$product_name);
@@ -102,9 +102,13 @@ class PaymentsController extends Controller
 	                'id' => $order->product_id, 
 	                'od' => $order->id 
 	            ]);
+            $url = URL::temporarySignedRoute('order.download', now()->addHours(24), [
+                'id' => $order->product_id, 
+                'od' => $order->id 
+            ]);
         	$sendSMS = $sms->to($order->customer_tel)
                         ->from(config('app.sms_number'), 'SchoolFAQs')
-                        ->message('Hello '. $order->customer_name. '. Thank you for purchasing \''. $order->product_name. '\' from The SchoolFAQs Shop. We hope to serve you again soon. You can download your product using this link: '.$urli)
+                        ->message('Hello '. $order->customer_name. '. Thank you for purchasing \''. $order->product_name. '\' from The SchoolFAQs Shop. We hope to serve you again soon. You can download your product using this link: '.$url)
                         ->send();
 	        //Audit Message
 	        $smsaudit = new Message;
@@ -117,9 +121,10 @@ class PaymentsController extends Controller
             return redirect($urli)->with('success', 'Payment Received');
 
         } else {
-        	$order = Order::where('trasaction_id', $transactionID->transactionID)->first();
+        	$order = Order::where('transaction_id', $transactionID->transactionID)->first();
             $order->payment_status = $transaction['reason'];
             $order->save();
+            $vat = config('app.vat_rate');
             $failReason = $transaction['reason'];
         	return view('users.failed_payment', compact('failReason', 'order'))->with('error', 'Payment Failed');
         }
