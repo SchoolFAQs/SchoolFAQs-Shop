@@ -21,7 +21,6 @@ class CreateOrdersTable extends Migration
             $table->string('product_price');
             $table->string('product_id');
             $table->string('vendor_email');
-            $table->string('product_type');
             $table->integer('is_downloaded')->nullable();
             $table->timestamp('downloaded_at')->nullable();
             $table->timestamps();
