@@ -102,9 +102,13 @@ class PaymentsController extends Controller
 	                'id' => $order->product_id, 
 	                'od' => $order->id 
 	            ]);
+            $url = URL::temporarySignedRoute('order.download', now()->addHours(24), [
+                'id' => $order->product_id, 
+                'od' => $order->id 
+            ]);
         	$sendSMS = $sms->to($order->customer_tel)
                         ->from(config('app.sms_number'), 'SchoolFAQs')
-                        ->message('Hello '. $order->customer_name. '. Thank you for purchasing \''. $order->product_name. '\' from The SchoolFAQs Shop. We hope to serve you again soon. You can download your product using this link: '.$urli)
+                        ->message('Hello '. $order->customer_name. '. Thank you for purchasing \''. $order->product_name. '\' from The SchoolFAQs Shop. We hope to serve you again soon. You can download your product using this link: '.$url)
                         ->send();
 	        //Audit Message
 	        $smsaudit = new Message;
