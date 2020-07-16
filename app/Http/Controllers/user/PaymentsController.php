@@ -122,6 +122,7 @@ class PaymentsController extends Controller
 
         } else {
         	$order = Order::where('transaction_id', $transactionID->transactionID)->first();
+            dd($transaction);
             $order->payment_status = $transaction['reason'];
             $order->save();
             $vat = config('app.vat_rate');
