@@ -103,7 +103,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">
+            <a class="nav-link text-dark" href="{{ route('account.balance') }}">
               <span><i class="fas fa-money-bill"></i></span>
               Finances
             </a>

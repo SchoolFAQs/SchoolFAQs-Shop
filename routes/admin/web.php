@@ -54,6 +54,7 @@ Route::domain('shop.'. config('app.domain'))->group(function () {
 					Route::get('yearsales', 'TotalOrdersController@year_sales')->name('year.sales');
 					Route::resource('totalorders', 'TotalOrdersController');
 					Route::resource('sms', 'SmsController');
+					Route::get('accountbalance', 'FinancesController@getbalance')->name('account.balance');
 				});	
 				
 		});
