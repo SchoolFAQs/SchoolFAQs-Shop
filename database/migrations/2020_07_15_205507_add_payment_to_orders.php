@@ -31,7 +31,7 @@ class AddPaymentToOrders extends Migration
         Schema::table('orders', function (Blueprint $table) {
             //
         $table->dropColumn('transact_id');
-        $table->dropColumn('transaction_id')
+        $table->dropColumn('transaction_id');
         $table->dropColumn('payment_status');
         });
     }

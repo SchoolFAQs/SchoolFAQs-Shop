@@ -13,7 +13,7 @@
 			<div class="card-body">
 				<p class="lead card-header"><strong>Payment Summary</strong></p>
 				<p class="text-white"><strong>Product:</strong> {{$product->product_name}}</p>
-				<p class="text-white"><strong>Price:</strong> {{number_format($product->product_price * $vat)}}</p>
+				<p class="text-white"><strong>Price:</strong> {{number_format($product->product_price * $vat)}} FCFA</p>
 				<p class="text-white"><strong>Name:</strong> {{$order->customer_name}}</p>
 				<p class="text-white"><strong>Tel:</strong> {{$order->customer_tel}}</p>
 				<p class="text-white"><strong>Vendor:</strong> {{$product->vendor->vendor_name}}</p>
@@ -21,7 +21,8 @@
 			</div>
 		</div>
 	  <p class="my-3">
-	    Having trouble? <a href="#">Contact us</a>
+	    Having trouble? <a class="mx-1" href="{{ route('contact.create') }}"><i class="fas fa-phone-alt"></i> Contact us</a>
+	    Return to shop? <a class="mx-1" href="{{ route('welcome') }}"><i class="fas fa-shopping-cart"></i> Shop</a>
 	  </p>
 	  
 	</div>

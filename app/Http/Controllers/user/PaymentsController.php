@@ -72,7 +72,6 @@ class PaymentsController extends Controller
 	                'id' => $order->product_id, 
 	                'od' => $order->id 
 	            ]);
-                sleep(4);
 	             return redirect($urli)->with('success', 'Success');
 			}
     }

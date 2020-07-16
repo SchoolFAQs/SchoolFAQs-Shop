@@ -48,6 +48,10 @@ class OrderController extends Controller
     {
         $product = Product::find($id);
         $order = Order::find($od);
+        //Check if User downloaded the file already.
+        if($order->is_downloaded == 1 ) {
+            return view('users.already_downloaded', compact('order'));
+        } else {
         $order->is_downloaded = 1;
         $order->downloaded_at = \Carbon\Carbon::now();
         $order->save();
@@ -58,6 +62,7 @@ class OrderController extends Controller
         //dd($myFile);
         //$order->delete();
         return response()->download($myFile, $newName, $headers);
+        }
         
     }
 
