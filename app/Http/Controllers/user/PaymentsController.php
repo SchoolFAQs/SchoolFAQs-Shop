@@ -50,7 +50,7 @@ class PaymentsController extends Controller
 	        $order->vendor_email = $request->input('vendor_email');
 	        $order->product_type = 'PAID';
 	        $order->transact_id = $transactId;
-	        $order->trasaction_id = $momoTransactionId;
+	        $order->transaction_id = $momoTransactionId;
 	        $order->save();
 	        $order->products()->attach($order->product_id);
 		return redirect(route('client.payment', ['transactionID' => $momoTransactionId]));
@@ -91,7 +91,7 @@ class PaymentsController extends Controller
 
         if ($transaction['status'] == 'SUCCESSFUL') {
             $success = true;
-            $order = Order::where('trasaction_id', $transactionID->transactionID)->first();
+            $order = Order::where('transaction_id', $transactionID->transactionID)->first();
             $order->payment_status = 'SUCCESSFUL';
             $order->save();
             //Send SMS 
@@ -117,7 +117,7 @@ class PaymentsController extends Controller
             return redirect($urli)->with('success', 'Payment Received');
 
         } else {
-        	$order = Order::where('trasaction_id', $transactionID->transactionID)->first();
+        	$order = Order::where('transaction_id', $transactionID->transactionID)->first();
             $order->payment_status = $transaction['reason'];
             $order->save();
             $failReason = $transaction['reason'];
