@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 	<div class="jumbotron text-center">
-	  <h1 class="display-3">Thank You!</h1>
+	  <h1 class="display-3 bg-success text-white p-1">Thank You!</h1>
 	  <p class="lead"><strong>Please check your sms</strong> for the download link or click on the download button below. This download link expires after 24 hours and can be usable only once. If you use the button to download you won't be able to use the sms link and vice-versa.</p>
 	  <hr>
 	  <p class="lead">
