@@ -124,6 +124,7 @@ class PaymentsController extends Controller
         	$order = Order::where('transaction_id', $transactionID->transactionID)->first();
             $order->payment_status = $transaction['reason'];
             $order->save();
+            $vat = config('app.vat_rate');
             $failReason = $transaction['reason'];
         	return view('users.failed_payment', compact('failReason', 'order'))->with('error', 'Payment Failed');
         }
