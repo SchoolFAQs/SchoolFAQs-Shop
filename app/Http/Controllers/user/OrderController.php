@@ -68,7 +68,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*//
          $this->validate($request, [
             'customer_name' => 'required',
             'customer_tel' => 'required|numeric|min:9',
@@ -107,21 +107,21 @@ class OrderController extends Controller
         $smsaudit->customer_tel = $order->customer_tel;
         $smsaudit->save();
         // Return Download Link
-         $urli = URL::temporarySignedRoute('index.download', now()->addHours(1), [
+         $urli = URL::temporarySignedRoute('index.download', now()->addHours(24), [
                 'id' => $order->product_id, 
                 'od' => $order->id 
             ]);
          return redirect($urli)->with('success', 'Order Created');
          
         } else {
-             $urli = URL::temporarySignedRoute('index.download', now()->addHours(1), [
+             $urli = URL::temporarySignedRoute('index.download', now()->addHours(24), [
                 'id' => $order->product_id, 
                 'od' => $order->id 
             ]);
              return redirect($urli)->with('success', 'Order Created');
         }
-       
-    }
+       */
+    } 
 
     /**
      * Display the specified resource.

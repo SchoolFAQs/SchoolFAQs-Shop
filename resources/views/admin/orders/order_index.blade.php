@@ -52,7 +52,7 @@
                                    <td><i class="fas fa-money-bill"></i> {{number_format($o->product_price/$vat - (($o->product_price/$vat) * config('app.rate')))}}</td>
                                    
 							<td><i class="far fa-calender"></i> {{$o->created_at}}</td>
-							@foreach($product as $p)
+							@foreach($products as $p)
 								@if($o->product_id == $p->id)
 									<td><i class="fas fa-store"></i> {{$p->vendor->vendor_name}}</td>
 								@endif

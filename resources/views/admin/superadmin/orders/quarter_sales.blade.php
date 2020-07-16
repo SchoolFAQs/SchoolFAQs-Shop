@@ -63,6 +63,7 @@
 				<th>Product Name</th>
                     <th>Product Price</th>
 				<th>Order Date</th>
+                    <th>Payment</th>
                     <th>DL</th>
                     <th>AT</th>
 				<th>Vendor</th>
@@ -77,6 +78,7 @@
 							<td><i class="fas fa-book"></i> {{$o->product_name}}</td>
                                    <td><i class="fa fa-money"></i> {{number_format($o->product_price)}} FCFA</td>
 							<td><i class="far fa-calendar-alt"></i> {{$o->created_at}}</td>
+                                   <td><i class="far fa-"></i> {{$o->payment_status}}</td>
                                    @if($o->is_downloaded == 1)
                                    <td><i class="fas fa-download text-success"></i> Yes</td>
                                    @else

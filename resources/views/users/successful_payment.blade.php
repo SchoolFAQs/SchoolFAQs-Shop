@@ -17,6 +17,7 @@
 				<p class="text-white"><strong>Name:</strong> {{$order->customer_name}}</p>
 				<p class="text-white"><strong>Tel:</strong> {{$order->customer_tel}}</p>
 				<p class="text-white"><strong>Vendor:</strong> {{$product->vendor->vendor_name}}</p>
+				<p class="text-white"><strong>Status:</strong> SUCCESSFUL</p>
 			</div>
 		</div>
 	  <p class="my-3">

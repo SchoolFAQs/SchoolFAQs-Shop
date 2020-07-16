@@ -45,20 +45,37 @@ class ContactController extends Controller
         $this->validate($request, [
             'user_name' => 'required',
             'user_tel' => 'required',
-            'message' => 'required'
+            'message' => 'required',
+            'support_image' => 'sometimes|file|image',
         ]);
 
         $message = new Contact;
+        $message->user_name = $request->input('user_name');
+
+        //Save supporting image
+        if($request->hasFile('support_image')){
+            //Get just extenstion
+            $extension = $request->file('support_image')->getClientOriginalExtension();
+            //File Name to store
+            $supportImageName = $message->user_name.'_support_image'.time().'.'.$extension;
+             //Upload Image
+            $path = $request->file('support_image')->storeAs('public/contact/'.$request->input('user_name'), $supportImageName);
+
+        } else {
+                $supportImageName = 'noimage.jpg';
+        }
+
         $message->ticket_id = '[CASE #TICKET_SFAQs'.time().']';
         $ticket = $message->ticket_id;
-        $message->user_name = $request->input('user_name');
         $message->user_tel = '+237'.$request->input('user_tel');
         $message->message = $request->input('message');
+        $message->support_image = $supportImageName;
          //Save Message
         $message->save();
         $ticket = $message->ticket_id;
         $message = $request->input('message');
         $user_name = $request->input('user_name');
+        $image = $supportImageName;
         $tel = '+237'.$request->input('user_tel');
         // Send SMS
         /*$client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
@@ -75,7 +92,7 @@ class ContactController extends Controller
         $smsaudit->customer_tel = $tel;
         $smsaudit->save(); */
         //Redirect Users
-        return view('users.message_received', compact('ticket', 'message', 'user_name'))->with('success', 'Your message has been recieved.');
+        return view('users.message_received', compact('ticket', 'message', 'user_name', 'image'))->with('success', 'Your message has been recieved.');
     }
 
     /**

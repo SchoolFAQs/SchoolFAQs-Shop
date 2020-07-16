@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use DB;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Order;
@@ -61,14 +62,16 @@ class PageController extends Controller
      
     public function index()
     {
-        $order = Order::orderBy('created_at', 'desc')->paginate(10);
-        $product = Product::with('vendor')->get();
-        $totalOrders = Order::where('vendor_email' , Auth()->User()->email)->count();
-        $totalMon = Order::where('vendor_email' , Auth()->User()->email)->sum('product_price');
-        $totalMoney = $totalMon - $totalMon * config('app.rate');
+        $myOrders = ['vendor_email' => Auth()->User()->email, 'payment_status' => 'SUCCESSFUL'];
+        $order = Order::where($myOrders)->orWhere('payment_status', '=', 'FREE')->orderBy('created_at', 'desc')->paginate(10);
+        $products = Product::with('vendor')->get();
+        $totalOrders = Order::where($myOrders)->orWhere('payment_status', '=', 'FREE')->count();
+        $totalMon = Order::where('vendor_email' , Auth()->User()->email)->where('payment_status', '=', 'SUCCESSFUL')->sum('product_price');
         $vat = config('app.vat_rate');
+        $schoolfaqs_rate = $totalMon/$vat * config('app.rate');
+        $totalMoney = $totalMon/$vat - $schoolfaqs_rate;
         $vat_value =  $totalMon - $totalMon/$vat;
-        return view('admin.orders.order_index', compact('order', 'product', 'totalMoney', 'totalOrders', 'vat', 'vat_value'));                
+        return view('admin.orders.order_index', compact('order', 'products', 'totalMoney', 'totalOrders', 'vat'));                
     }
     public function profile ($user){
         $profile = User::where('slug', $user)->first();

@@ -25,7 +25,7 @@
           <li class="nav-item">
             <a class="nav-link text-dark" href="{{ route('page.index') }}">
               <span> <i class="fas fa-shopping-cart"></i></span>
-              Orders <span class="badge img-thumbnail">{{number_format($my_orders)}}</span>
+              Orders <span class="badge img-thumbnail"></span>
             </a>
           </li>
           <li class="nav-item">

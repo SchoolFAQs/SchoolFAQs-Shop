@@ -11,6 +11,11 @@
 				<div class="lead card p-3">
 					<h4>"{{$message}}"</h4>
 				</div>
+				@if($image != 'noimage.jpg')
+				<div>
+					<img class="img-thumbnail" src="/storage/contact/{{$image}}" alt="Supporting Image">
+				</div>
+				@endif
 			</div>
 		</div>
 		<a href="{{ route('welcome') }}" class="btn my-3 rounded-pill btn-primary">Go Back</a>

@@ -28,7 +28,7 @@ class TotalOrdersController extends Controller
         $order = Order::orderBy('created_at', 'desc')->paginate(10);
         $product = Product::with('vendor')->get();
         $totalOrders = Order::count();
-        $totalMon = Order::sum('product_price');
+        $totalMon = Order::where('payment_status', '=', 'SUCCESSFUL')->sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
         $vat = config('app.vat_rate');
         $vat_value =  $totalMon - $totalMon/$vat;
@@ -41,7 +41,7 @@ class TotalOrdersController extends Controller
         $order = Order::whereDate('created_at', date('Y-m-d'))->get();
         $product = Product::with('vendor')->get();
         $totalOrders = Order::whereDate('created_at', date('Y-m-d'))->count();
-        $totalMon = Order::whereDate('created_at', date('Y-m-d'))->sum('product_price');
+        $totalMon = Order::where('payment_status', '=', 'SUCCESSFUL')->whereDate('created_at', date('Y-m-d'))->sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
         $vat = config('app.vat_rate');
         $vat_value =  $totalMon - $totalMon/$vat;  
@@ -54,7 +54,7 @@ class TotalOrdersController extends Controller
         $order = Order::whereMonth('created_at', Carbon::now()->month)->get();
         $product = Product::with('vendor')->get();
         $totalOrders = Order::whereMonth('created_at', Carbon::now()->month)->count();
-        $totalMon = Order::whereMonth('created_at', Carbon::now()->month)->sum('product_price');
+        $totalMon = Order::where('payment_status', '=', 'SUCCESSFUL')->whereMonth('created_at', Carbon::now()->month)->sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
         $vat = config('app.vat_rate');
         $vat_value =  $totalMon - $totalMon/$vat;
@@ -68,7 +68,7 @@ class TotalOrdersController extends Controller
         $order = Order::where('created_at','>=',Carbon::now()->subdays(60))->get();
         $product = Product::with('vendor')->get();
         $totalOrders = Order::where('created_at','>=',Carbon::now()->subdays(60))->count();
-        $totalMon = Order::where('created_at','>=',Carbon::now()->subdays(60))->sum('product_price');
+        $totalMon = Order::where('payment_status', '=', 'SUCCESSFUL')->where('created_at','>=',Carbon::now()->subdays(60))->sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
         $vat = config('app.vat_rate');
         $vat_value =  $totalMon - $totalMon/$vat;
@@ -82,7 +82,7 @@ class TotalOrdersController extends Controller
         $order = Order::whereYear('created_at', Carbon::now()->year)->get();
         $product = Product::with('vendor')->get();
         $totalOrders = Order::whereYear('created_at', Carbon::now()->year)->count();
-        $totalMon = Order::whereYear('created_at', Carbon::now()->year)->sum('product_price');
+        $totalMon = Order::where('payment_status', '=', 'SUCCESSFUL')->whereYear('created_at', Carbon::now()->year)->sum('product_price');
         $totalMoney = $totalMon * config('app.rate');
         $vat = config('app.vat_rate');
         $vat_value = $totalMon - $totalMon/$vat;

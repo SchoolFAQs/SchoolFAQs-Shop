@@ -22,7 +22,7 @@ class SidebarComposer
         	[
         		'my_products' => Product::where('admin_name', Auth()->User()->name)->count(),
         		'my_vendors' => Vendor::where('vendor_email', Auth()->User()->email)->count(),
-        		'my_orders' => Order::where('vendor_email', Auth()->User()->email)->count(),
+        		'my_orders' => Order::where('vendor_email', Auth()->User()->email)->orWhere('payment_status', '=', 'FREE')->orWhere('payment_status', '=', 'SUCCESSFUL')->count(),
         		'total_products' => Product::all()->count(),
         		'total_vendors' => Vendor::all()->count(),
                 'total_applications' => Apply::where('solve_date', NULL)->count(),

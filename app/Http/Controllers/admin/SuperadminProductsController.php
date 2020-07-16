@@ -34,6 +34,8 @@ class SuperadminProductsController extends Controller
         $products = Product::orderBy('created_at', 'desc')->with('vendor')->get();
         //$order = Order::orderBy('product_id', 'desc')->with('products')->count();
         $orders = DB::table('orders')
+             ->where('payment_status', '=', 'SUCCESSFUL')
+             ->orWhere('payment_status', '=', 'FREE')
              ->select('product_id', DB::raw('count(*) as total'))
              ->groupBy('product_id')
              ->get();
@@ -70,7 +72,7 @@ class SuperadminProductsController extends Controller
             'product_description' => 'required',
             'product_level' => 'sometimes',
             'product_image' => 'required|file|image|max:1999',
-            'product_file' => 'required',
+            'product_file' => 'required|file',
             'vendor_id' => 'required',
             'category_id' => 'required'
         ]);

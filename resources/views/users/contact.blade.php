@@ -27,6 +27,13 @@
 		   			<label for="name" class="col-form-label">Message</label>
 		   			<textarea class="form-control" name="message" rows="4"></textarea>
 		   		</div>
+		   		<div class="mb-3">
+	                <label for="Image">
+	                    <strong><i class="fas fa-image"></i> Image:</strong>
+	                </label>
+	                <input type="file" class="form-control-file border-bottom" name="support_image">
+	                <small class="form-text text-muted">Could be screenshots, snapshots, etc. Upload anything that can help us understand your question. You can leave this blank if it's not necessary. MAX size = 2MB (jpg,png)</small>
+            	</div>
 		   		<input type="submit" value="Send" class=" mt-3 btn mr-4 rounded-pill btn-primary">
 		   		@csrf
 		   		</form>

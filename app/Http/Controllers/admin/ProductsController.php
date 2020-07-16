@@ -61,7 +61,7 @@ class ProductsController extends Controller
             'product_description' => 'required',
             'product_level' => 'sometimes',
             'product_image' => 'required|file|image|max:1999',
-            'product_file' => 'required',
+            'product_file' => 'required|file',
             'vendor_id' => 'required',
             'category_id' => 'required'
         ]);

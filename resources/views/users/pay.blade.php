@@ -5,7 +5,7 @@
       <div class="mt-3 col img-thumbnail">
         <h5 class="card-title text-center display-5">Payment Form<br> <img src="{{ asset('mtn_checkout.png') }}"> {{--| <img class="rounded-circle" src="{{ asset('orange_checkout.png') }}">--}} </h5>
         <div class="card-body">
-          <form method="POST" action="{{ route('order.store') }}" class="form-group">
+          <form method="POST" action="{{ route('client.pay') }}" class="form-group">
     		      <label><h6>Name</h6></label>
     		      <input type="text" class="form-control my-2 py-3" name="customer_name" placeholder="Your Name">
     		      <label><h6>Mobile Money Number</h6></label>
@@ -13,7 +13,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">+237</span>
                 </div>
-                <input type="text" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" class="form-control my-2 py-3" name="customer_tel" placeholder="681108107">
+                <input type="text"  class="form-control my-2 py-3" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" name="customer_tel" placeholder="681108107">
               </div>
     		      
     		      <label><h6>Product Name </h6></label>
