@@ -127,7 +127,7 @@ class PaymentsController extends Controller
             $order->save();
             //$vat = config('app.vat_rate');
             $failReason = $transaction['reason'];
-        	return view('users.failed_payment', compact('failReason', 'order', 'vat'))->with('error', 'Payment Failed');
+        	return view('users.failed_payment', compact('failReason', 'order'))->with('error', 'Payment Failed');
         }
     }
 }
