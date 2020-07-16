@@ -36,7 +36,7 @@
     		  </form>
         </div>
       </div>
-
+      
     <div class="mt-3 col">
         <div class="card shadow rounded">
           <div>
@@ -69,5 +69,4 @@
       </div>
     </div>
   </div>
-
 @endsection
