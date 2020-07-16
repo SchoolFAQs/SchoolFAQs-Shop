@@ -10,7 +10,7 @@
 			<div class="card-body">
 				<p class="lead card-header"><strong>Payment Summary</strong></p>
 				<p class="text-white"><strong>Product:</strong> {{$order->product_name}}</p>
-				<p class="text-white"><strong>Price:</strong> {{number_format($order->product_price)}} FCFA</p>
+				<p class="text-white"><strong>Price:</strong> {{number_format($order->product_price * $vat)}} FCFA</p>
 				<p class="text-white"><strong>Name:</strong> {{$order->customer_name}}</p>
 				<p class="text-white"><strong>Tel:</strong> {{$order->customer_tel}}</p>
 				<p class="text-white"><strong>Status:</strong> {{$failReason}}</p>
