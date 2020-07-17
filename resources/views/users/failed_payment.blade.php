@@ -1,8 +1,8 @@
 @extends('users.layouts.payments')
 @section('content')
 <div class="container">
-	<div class="jumbotron text-center ">
-	  <h1 class="display-3 p-1 text-white bg-danger">Payment Error!</h1>
+	<div class="jumbotron jumbotron-fluid text-center ">
+	  <h1 class="display-3 text-white bg-danger">Payment Error!</h1>
 	  <p class="lead"><strong>Dear {{$order->customer_name}}, the payment was unsuccesful. This could be due to a number of reasons. Please check below for the status of the transaction. <br>
 	  However, if you notice that the transaction went through and money was deducted from your account, please do not hesitate to contact us with the 'Status' given below, your name, phone number, the date of the transaction and the name of the product. We will address the problem immediately and take the necessary actions.</strong> </p>
 	  <hr>

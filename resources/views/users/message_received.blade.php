@@ -1,6 +1,6 @@
 @extends('users.layouts.master')
 @section('content')
-	<div class="jumbotron container">
+	<div class="jumbotron jumbotron-fluid container">
 		<h1 class="lead dislay-2 text-success">MESSAGE RECEIVED</h1>
 		<div class="card shadow">
 			<div class="card-header">

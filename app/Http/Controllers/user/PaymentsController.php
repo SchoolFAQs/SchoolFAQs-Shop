@@ -32,30 +32,72 @@ class PaymentsController extends Controller
         ]);
         //Check product Price
         if($request->product_price != 0) {
-    	// Request Payment
-        $transactId = time().$request->input('product_id');
-        $product_name = $request->input('product_name');             
-		$product_price = $request->input('product_price');
-		$customer_tel = '237'.$request->input('customer_tel');
+                	// Request Payment
+                    $transactId = time().$request->input('product_id');
+                    $product_name = $request->input('product_name');             
+            		$product_price = $request->input('product_price');
+            		$customer_tel = '237'.$request->input('customer_tel');
 
-    	$collection = new Collection();
-		$momoTransactionId = $collection->requestToPay($transactId, $customer_tel, $product_price, 'SchoolFAQs Product', 'Payment for '.$product_name);
-		//Save Transaction
-			$order = new Order;
-	        $order->product_name = $request->input('product_name');             
-	        $order->product_price = $request->input('product_price');
-	        $order->customer_name = $request->input('customer_name');
-	        $order->customer_tel = '+237'.$request->input('customer_tel');
-	        $order->product_id = $request->input('product_id');
-	        $order->vendor_email = $request->input('vendor_email');
-	        $order->product_type = 'PAID';
-	        $order->transact_id = $transactId;
-	        $order->transaction_id = $momoTransactionId;
-	        $order->save();
-	        $order->products()->attach($order->product_id);
-		return redirect(route('client.payment', ['transactionID' => $momoTransactionId]));
+                	$collection = new Collection();
+            		$momoTransactionId = $collection->requestToPay($transactId, $customer_tel, $product_price, 'SchoolFAQs Product', 'Payment for '.$product_name);
+            		//Save Transaction
+            			$order = new Order;
+            	        $order->product_name = $request->input('product_name');             
+            	        $order->product_price = $request->input('product_price');
+            	        $order->customer_name = $request->input('customer_name');
+            	        $order->customer_tel = '+237'.$request->input('customer_tel');
+            	        $order->product_id = $request->input('product_id');
+            	        $order->vendor_email = $request->input('vendor_email');
+            	        $order->product_type = 'PAID';
+            	        $order->transact_id = $transactId;
+            	        $order->transaction_id = $momoTransactionId;
+            	        $order->save();
+            	        $order->products()->attach($order->product_id);
+            		//return redirect(route('client.payment', ['transactionID' => $momoTransactionId]));
+                        $transaction  = $collection->getTransactionStatus($momoTransactionId);
+                        $success = false;
+                    if ($transaction['status'] == 'SUCCESSFUL') {
+                        $success = true;
+                        $order = Order::where('transaction_id', $momoTransactionId)->first();
+                        $order->payment_status = 'SUCCESSFUL';
+                        $order->save();
+                        //Send SMS 
+                        $client = SMSClient::getInstance(config('app.client_id'), config('app.client_secret'));
+                        $sms = new SMS($client);
+                        //Download Link
+                        $urli = URL::temporarySignedRoute('index.download', now()->addHours(24), [
+                                'id' => $order->product_id, 
+                                'od' => $order->id 
+                            ]);
+                        $url = URL::temporarySignedRoute('order.download', now()->addHours(24), [
+                            'id' => $order->product_id, 
+                            'od' => $order->id 
+                        ]);
+                        $sendSMS = $sms->to($order->customer_tel)
+                                    ->from(config('app.sms_number'), 'SchoolFAQs')
+                                    ->message('Hello '. $order->customer_name. '. Thank you for purchasing \''. $order->product_name. '\' from The SchoolFAQs Shop. We hope to serve you again soon. You can download your product using this link: '.$url)
+                                    ->send();
+                        //Audit Message
+                        $smsaudit = new Message;
+                        $smsaudit->message_type = 'Auto';
+                        $smsaudit->message_purpose = 'Product Sale';
+                        $smsaudit->customer_name = $order->customer_name;
+                        $smsaudit->customer_tel = $order->customer_tel;
+                        $smsaudit->save();
+                        $vat = config('app.vat_rate');
+                        return redirect($urli)->with('success', 'Payment Received');
 
-		} else // Download Product
+                    } else {
+                        $order = Order::where('transaction_id', $momoTransactionId)->first();
+                        //dd($transaction['reason']);
+                        $order->payment_status = $transaction['reason'];
+                        $order->save();
+                        //$vat = config('app.vat_rate');
+                        $failReason = $transaction['reason'];
+                        return view('users.failed_payment', compact('failReason', 'order'))->with('error', 'Payment Failed');
+                    }
+
+		} else // Download Free Product
 			{
 				$order = new Order;
 		        $order->product_name = $request->input('product_name');             
@@ -83,7 +125,7 @@ class PaymentsController extends Controller
      * @param  string $transact_id
      * @return \Illuminate\Http\Response
      */
-    public function checkpayment (Request $transactionID) {
+    /*public function checkpayment (Request $transactionID) {
 		
     	$collection = new Collection();
         $transaction  = $collection->getTransactionStatus($transactionID->transactionID);
@@ -129,5 +171,5 @@ class PaymentsController extends Controller
             $failReason = $transaction['reason'];
         	return view('users.failed_payment', compact('failReason', 'order'))->with('error', 'Payment Failed');
         }
-    }
+    }*/
 }

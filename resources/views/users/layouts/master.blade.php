@@ -7,7 +7,7 @@
 				@include('users.layouts.topbar')
     			@yield('sidebar')			
 				<div class="container-fluid">
-		    		<div class="modal-dialog modal-body">
+		    		<div class="modal-dialog my-3 modal-body">
 						@include('messages.messages')
 					</div>
 				@yield('content')

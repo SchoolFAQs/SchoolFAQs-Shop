@@ -31,7 +31,7 @@
               </div>  
               <input type="hidden" name="product_id" value="{{$product->id}}">
               <input type="hidden" name="vendor_email" value="{{$product->vendor->vendor_email}}">    
-              <input type="submit" class="btn mt-2 mr-2 rounded-pill btn-primary" value="Pay {{number_format($product->product_price * $vat)}} FCFA">
+              <input type="submit" id="pay" class="btn mt-2 mr-2 rounded-pill btn-primary" value="Pay {{number_format($product->product_price * $vat)}} FCFA">
             @csrf
     		  </form>
         </div>
