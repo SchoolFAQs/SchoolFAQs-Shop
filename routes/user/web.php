@@ -25,6 +25,6 @@ Route::domain('shop.'. config('app.domain'))->group(function () {
 	Route::get('apply', 'ClientController@vendor_apply')->name('vendor.apply');
 	Route::post('apply', 'ClientController@vendor_application')->name('vendor.application');
 	Route::post('payment', 'PaymentsController@requesttopay')->name('client.pay');
-	//Route::get('payment/confirm/', 'PaymentsController@checkpayment')->name('client.payment');
+	Route::get('payment/confirm/', 'PaymentsController@checkpayment')->name('client.payment');
 	
 });
