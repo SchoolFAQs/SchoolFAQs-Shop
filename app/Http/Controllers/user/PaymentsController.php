@@ -36,8 +36,8 @@ class PaymentsController extends Controller
         $transactId = time().$request->input('product_id');
         $product_name = $request->input('product_name');             
 		$product_price = $request->input('product_price');
-		//$customer_tel = '237'.$request->input('customer_tel');
-        $customer_tel = $request->input('customer_tel');
+		$customer_tel = '237'.$request->input('customer_tel');
+        //$customer_tel = $request->input('customer_tel');
 
     	$collection = new Collection();
 		$momoTransactionId = $collection->requestToPay($transactId, $customer_tel, $product_price, 'SchoolFAQs Product', 'Payment for '.$product_name);
