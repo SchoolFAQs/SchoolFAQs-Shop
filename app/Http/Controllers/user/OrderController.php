@@ -58,7 +58,7 @@ class OrderController extends Controller
         //$order = Order::find($od);
         $myFile = storage_path("app/public/products/{$product->product_file}"); 
         $headers = ['Content-Type: application/pdf'];
-        $newName = 'SchoolFAQs_'.$product->id.'-'.$product->product_name.'.pdf';
+        $newName = 'SchoolFAQs_'.$product->id.'-'.$product->product_file';
         //dd($myFile);
         //$order->delete();
         return response()->download($myFile, $newName, $headers);
