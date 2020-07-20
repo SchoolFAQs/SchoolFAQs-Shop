@@ -120,3 +120,15 @@ input[type="submit"] {
   -ms-transform: scale(1);
   transform: scale(1);
 }
+
+#loader {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.75) url(loading-5.gif) no-repeat center center;
+  z-index: 10000;
+}

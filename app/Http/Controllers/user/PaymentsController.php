@@ -36,7 +36,8 @@ class PaymentsController extends Controller
         $transactId = time().$request->input('product_id');
         $product_name = $request->input('product_name');             
 		$product_price = $request->input('product_price');
-		$customer_tel = '237'.$request->input('customer_tel');
+		//$customer_tel = '237'.$request->input('customer_tel');
+        $customer_tel = $request->input('customer_tel');
 
     	$collection = new Collection();
 		$momoTransactionId = $collection->requestToPay($transactId, $customer_tel, $product_price, 'SchoolFAQs Product', 'Payment for '.$product_name);
@@ -54,6 +55,7 @@ class PaymentsController extends Controller
 	        $order->save();
 	        $order->products()->attach($order->product_id);
 		return redirect(route('client.payment', ['transactionID' => $momoTransactionId]));
+            //return view('users.verifyPayment', compact('momoTransactionId'));
 
 		} else // Download Free Product
 			{
@@ -84,11 +86,11 @@ class PaymentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function checkpayment (Request $transactionID) {
-		
+        //dd($transactionID);
     	$collection = new Collection();
         $transaction  = $collection->getTransactionStatus($transactionID->transactionID);
+        //dd($transaction);
         $success = false;
-
         if ($transaction['status'] == 'SUCCESSFUL') {
             $success = true;
             $order = Order::where('transaction_id', $transactionID->transactionID)->first();
@@ -120,7 +122,12 @@ class PaymentsController extends Controller
             $vat = config('app.vat_rate');
             return redirect($urli)->with('success', 'Payment Received');
 
-        } else {
+        } elseif (($transaction['status'] == 'PENDING')) {
+            $ref = $transactionID->transactionID;
+            return view('users.verifyPayment', compact('ref'));
+        }
+
+        else {
         	$order = Order::where('transaction_id', $transactionID->transactionID)->first();
             //dd($transaction['reason']);
             $order->payment_status = $transaction['reason'];

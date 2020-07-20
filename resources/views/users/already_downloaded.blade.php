@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 	<div class="jumbotron jumbotron-fluid text-center ">
-	  <h1 class="p-1 display-4 text-white bg-info">ALREADY DOWNLOADED!</h1>
+	  <h1 class="p-1 display-4 text-white bg-info">Already Downloaded!</h1>
 	  <p class="lead"><strong>Dear {{$order->customer_name}}, this product has been downloaded already.<br>
 	  According to our systems, you downloaded this product on the <strong>{{$order->downloaded_at}}</strong>. However, if you had problems with your download please do not hesitate to contact us with your name, phone number, the screenshot of the failed download, the date of the transaction and the name of the product. We will address the problem immediately and take necessary actions.</strong> </p>
 	  <hr>
