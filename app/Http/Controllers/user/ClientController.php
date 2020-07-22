@@ -30,7 +30,7 @@ class ClientController extends Controller
              ->select('product_id', DB::raw('count(*) as total'))
              ->groupBy('product_id')
              ->get();
-        $products = Product::orderBy('best_seller', 'desc')->orderBy('featured', 'desc')->paginate(6);
+        $products = Product::orderBy('best_seller', 'desc')->orderBy('featured', 'desc')->orderBy('created_at', 'desc')->paginate(10);
         $vat = config('app.vat_rate');
         return view('users.welcome', compact('products', 'category', 'order_count', 'vat'));
     }
