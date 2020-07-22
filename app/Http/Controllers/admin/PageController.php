@@ -63,10 +63,10 @@ class PageController extends Controller
     public function index()
     {
         $myOrders = ['vendor_email' => Auth()->User()->email, 'payment_status' => 'SUCCESSFUL'];
-        $myFreeOrders = ['vendor_email' => Auth()->User()->email, 'payment_status' => 'FREE'];
+        //$myFreeOrders = ['vendor_email' => Auth()->User()->email, 'payment_status' => 'FREE'];
         $order = Order::where($myOrders)->orWhere('payment_status', '=', 'FREE')->orderBy('created_at', 'desc')->paginate(10);
         $products = Product::with('vendor')->get();
-        $totalOrders = Order::where($myOrders)->orWhere($myFreeOrders)->count();
+        $totalOrders = Order::where($myOrders)->count();
         $totalMon = Order::where('vendor_email' , Auth()->User()->email)->where('payment_status', '=', 'SUCCESSFUL')->sum('product_price');
         $vat = config('app.vat_rate');
         $schoolfaqs_rate = $totalMon/$vat * config('app.rate');
