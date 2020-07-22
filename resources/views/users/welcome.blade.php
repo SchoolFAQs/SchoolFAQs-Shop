@@ -43,17 +43,17 @@
 
   <div class="row">
     @foreach($products as $product)
-    <div class="col-xs-6">
-    	<div class="card my-2 mx-2 shadow rounded-left">
+    <div class="col-12 col-lg-4">
+      <div class="card my-3 mx-3 shadow rounded-left">
     		<div class="embed-responsive embed-responsive-4by3 hovereffect">
         		<img class="card-img img-thumbnail embed-responsive-item" src="/storage/product_images/{{$product->product_image}}" alt="">
             <div class="overlay">
                <h2>{{$product->product_name}}</h2>
-               <a class="info btn-sm" href="{{ route('client.show', $product->slug) }}">View Product</a>
+               <a class="info" href="{{ route('client.show', $product->slug) }}">View Product</a>
             </div>
         	</div>
         	<div class="card-body">
-          		<h6 class="card-title text-center text-uppercase">{{$product->product_name}}</h6>
+          		<h4 class="card-title text-center text-uppercase">{{$product->product_name}}</h4>
               <div class="buy text-info d-flex justify-content-around align-items-center">
                 @if($product->best_seller == 1)
                  <h6><span><i class="fas fa-award"></i> BEST SELLER</span></h6>
@@ -62,13 +62,12 @@
                 <h6><span><i class="fas fa-star"></i> FEATURED</span></h6>
                 @endif
               </div>
-               <div>
+               <div class="buy d-flex justify-content-around align-items-center">
+                <div>
                   <span>
                     <h6 class="text-muted">{{$product->product_level}}</h6> 
                   </span>
                 </div>
-              <div class="d-flex justify-content-around align-items-center">
-               
                 <div>
                   <span>
                     @foreach($order_count as $order)
@@ -87,23 +86,19 @@
 
               <hr>
               <div class="justify-content-between align-items-center">
-                <hp class="card-subtitle text-muted"><i class="fas fa-store"></i> {{$product->vendor->vendor_name}} </p>
+                <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-store"></i> {{$product->vendor->vendor_name}} </h6>
               </div>
           		
           		<div class="buy d-flex justify-content-between align-items-center">
             		<div class="price text-success">
-            			<h6><i class="fa fa-money"></i> {{number_format($product->product_price * $vat)}} FCFA</h6>
+            			<h5 class=" mt-4"><i class="fa fa-money"></i> {{number_format($product->product_price * $vat)}} FCFA</h5>
             		</div> 
+                <a href="{{ route('client.show', $product->slug) }}" class="btn mr-2 rounded-pill btn-danger"><i class="fas fa-shopping-cart"></i> Buy</a>
           		</div>
-              <div>
-                <a href="{{ route('client.show', $product->slug) }}" class="btn rounded-pill btn-danger btn-sm float-right"><i class="fas fa-shopping-cart"></i> Buy</a>
-              </div>
-              <div>
                 <h6 class="badge">Tags:</h6>
               @foreach($product->categories as $cat)
                 <span class="card-subtitle badge text-muted"> {{$cat->category_name}} </span>
               @endforeach
-              </div>
         	</div>
       	</div>
     </div>
