@@ -13,7 +13,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">+237</span>
                 </div>
-                <input type="text"  class="form-control my-2 py-3" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" name="customer_tel" placeholder="681108107">
+                <input type="text"  class="form-control my-2 py-3" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" name="customer_tel" placeholder="eg: 681108107">
               </div>
     		      
     		      <label><h6>Product Name </h6></label>
