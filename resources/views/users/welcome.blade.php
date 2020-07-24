@@ -86,7 +86,7 @@
 
               <hr>
               <div class="justify-content-between align-items-center">
-                <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-store"></i> {{$product->vendor->vendor_name}} </h6>
+                <small class="card-subtitle mb-2 text-muted">sold by: <h6><i class="fas fa-store"></i> {{$product->vendor->vendor_name}}</h6> </small>
               </div>
           		
           		<div class="buy d-flex justify-content-between align-items-center">
@@ -106,5 +106,4 @@
   </div>
   {{$products->links()}}
 </div>
-
 @endsection
