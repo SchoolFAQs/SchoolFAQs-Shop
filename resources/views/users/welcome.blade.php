@@ -43,6 +43,7 @@
 
   <div class="mt-3 row">
     @foreach($products as $product)
+    <a href="{{ route('client.show', $product->slug) }}">
     <div class="col-12 col-lg-4">
       <hr>
       <div class="card border-0">
@@ -62,17 +63,26 @@
               <img class="card-img" src="/storage/product_images/{{$product->product_image}}" alt=""> 
                 <div class="overlay">
                    <h2>{{$product->product_name}}</h2>
-                   <a class="info" href="{{ route('client.show', $product->slug) }}">View Product</a>
+                   <a class="info" href="{{ route('client.show', $product->slug) }}">View</a>
                 </div>
-            </div>  
+            </div> 
+            </a>
           </div>
           <div class="col">
             <div class="card-block px-2">
-              <h4 class="card-title">{{$product->product_name}}</h4>
-              <p class="card-text">{{$product->product_level}}</p>
+              <h5 class="card-title text-uppercase">{{$product->product_name}}</h5>
+              <small class="card-subtitle mb-2 text-muted">sold by <i class="fas fa-store"></i> {{$product->vendor->vendor_name}}</small>
+              <h6 class="card-text"><small>{{$product->product_level}}</small></h6>
               <div class="price">
-                  <h5 class="text-success"><i class="fa fa-money"></i> {{number_format($product->product_price * $vat)}} FCFA <sub class="text-muted"><del>{{number_format($product->product_price * $vat * 2)}} FCFA</del></sub></h5>
-                <span>
+                  <h6 class="text-success"><i class="fa fa-money"></i> {{number_format($product->product_price * $vat)}} FCFA <sub class="text-muted"><del>{{number_format($product->product_price * $vat * 2)}} FCFA</del></sub></h6>
+                  
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center w-100 text-muted">
+          <div>
+            <span>
                     @foreach($order_count as $order)
                       @if($product->id == $order->product_id)
                         @if($product->product_price != 0)
@@ -84,13 +94,6 @@
                       @endif
                     @endforeach
                 </span>
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center w-100 text-muted">
-          <div>
-            <small class="card-subtitle mb-2 text-muted">sold by: <h6><i class="fas fa-store"></i> {{$product->vendor->vendor_name}}</h6> </small>
           </div>
           <div>
             <span>
@@ -100,6 +103,7 @@
         </div>
     </div>
   </div>
+</a>
     @endforeach   
   </div>
   {{$products->links()}}
