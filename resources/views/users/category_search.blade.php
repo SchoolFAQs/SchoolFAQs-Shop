@@ -33,7 +33,7 @@
                 <div class="buy d-flex justify-content-around align-items-center">
                 <div>
                   <span>
-                    <h6 class="text-muted">Rating: {{$product->product_level}}</h6> 
+                    <h6 class="text-muted">{{$product->product_level}}</h6> 
                   </span>
                 </div>
                 <div>
