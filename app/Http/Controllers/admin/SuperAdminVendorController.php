@@ -28,6 +28,7 @@ class SuperAdminVendorController extends Controller
     public function assign_rate($id){
         $vendor = Vendor::find($id);
         $rates = Rate::all();
+        dd('view');
         return view('admin.superadmin.rates.rates_assign_vendor', compact('vendor', 'rates'));
     }
 
