@@ -45,20 +45,20 @@ Route::domain('shop.'. config('app.domain'))->group(function () {
 			
 				// SuperAdmin Routes
 				Route::middleware(['superAdmin'])->group(function() {
+					Route::resource('adminvendors', 'SuperAdminVendorController', ['except' => ['create']]);
 					Route::get('todaysales', 'TotalOrdersController@today_sales')->name('today.sales');
 					Route::get('monthsales', 'TotalOrdersController@month_sales')->name('month.sales');
 					Route::get('quartersales', 'TotalOrdersController@quarter_sales')->name('quarter.sales');
 					Route::get('yearsales', 'TotalOrdersController@year_sales')->name('year.sales');
 					Route::get('accountbalance', 'FinancesController@getbalance')->name('account.balance');
 					Route::resource('adminproducts','SuperadminProductsController');
-					Route::get('adminvendors/{id}', 'SuperAdminVendorController@assign_rate')->name('vendorrate.assign');
-					Route::resource('adminvendors', 'SuperAdminVendorController', ['except' => ['create']]);		
 					Route::post('adminvendors', 'SuperAdminVendorController@save_rate')->name('vendorrate.save');
-					Route::get('adminvendors/{id}', 'SuperAdminVendorController@create')->name('vendors.create');
+					Route::get('adminvendors/create/{id}', 'SuperAdminVendorController@create')->name('vendors.create');		
 					Route::resource('user', 'UserController');
 					Route::resource('totalorders', 'TotalOrdersController');
 					Route::resource('sms', 'SmsController');
 					Route::resource('rates', 'RatesController');
+					Route::get('adminvendors/{id}', 'SuperAdminVendorController@assign_rate')->name('vendorrate.assign');
 				});	
 				
 		});

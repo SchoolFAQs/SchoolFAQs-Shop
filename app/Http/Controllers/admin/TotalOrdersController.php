@@ -28,7 +28,7 @@ class TotalOrdersController extends Controller
         $paidOrder = ['payment_status' => 'SUCCESSFUL'];
         //Get all orders
         $order = Order::with('products.vendor')->paginate(10);
-        $totalOrders = sizeof($order); //Get number of alll daily orders
+        $totalOrders = Order::all()->count(); //Get number of all daily orders
         //Get all successfully paid orders
         $paidOrders = Order::with('products.vendor')->where($paidOrder)->get();
         $totalPaidOrders = sizeof($paidOrders);
@@ -70,7 +70,7 @@ class TotalOrdersController extends Controller
         $paidOrder = ['payment_status' => 'SUCCESSFUL'];
         //Get all orders
         $order = Order::with('products.vendor')->whereDate('created_at', date('Y-m-d'))->paginate(10);
-        $totalOrders = sizeof($order); //Get number of alll daily orders
+        $totalOrders = sizeof($order); //Get number of all daily orders
         //Get all successfully paid orders
         $paidOrders = Order::with('products.vendor')->whereDate('created_at', date('Y-m-d'))->where($paidOrder)->get();
         $totalPaidOrders = sizeof($paidOrders);
