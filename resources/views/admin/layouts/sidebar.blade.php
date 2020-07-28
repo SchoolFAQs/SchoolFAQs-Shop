@@ -25,13 +25,13 @@
           <li class="nav-item">
             <a class="nav-link text-dark" href="{{ route('page.index') }}">
               <span> <i class="fas fa-shopping-cart"></i></span>
-              Orders <span class="badge img-thumbnail"></span>
+              Purchases <span class="badge img-thumbnail"></span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-dark" href="#">
               <span><i class="fa fa-money"></i></span>
-              Withdrawals <span class="badge img-thumbnail">#</span>
+              Wallet <span class="badge img-thumbnail"></span>
             </a>
           </li>
           <li class="nav-item">
@@ -42,6 +42,8 @@
           </li>
         </ul>
         @endcan
+
+
         @can('isAdmin')
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 text-muted">
           <span>Admin</span>
@@ -67,17 +69,22 @@
               Vendor Applications <span class="badge img-thumbnail">{{number_format($total_applications)}}</span>
             </a>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <i class="fa fa-truck" aria-hidden="true"></i> Logistics
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Orders</a>
+              <a class="dropdown-item" href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> Locations</a>
+            </div>
+          </li>
           @endcan
+
+
           @can('isSuperAdmin')
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 text-muted">
             <span>Super Admin</span>
           </h6>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('user.index') }}">
-              <span><i class="fas fa-user"></i></span>
-              Users <span class="badge img-thumbnail">{{number_format($total_users)}}</span>
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link text-dark" href="{{ route('adminproducts.index') }}">
               <span><i class="fas fa-book"></i></span>
@@ -90,7 +97,52 @@
               Total Vendors <span class="badge img-thumbnail">{{number_format($total_vendors)}}</span>
             </a>
           </li>
-          <li class="nav-item">
+        
+          <li class="nav-item dropdown">
+           
+                  <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-shopping-basket"></i> Sales
+                  </a> 
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="nav-link text-dark dropdown-item" href="{{ route('today.sales') }}">
+                <span><i class="fas fa-calendar-day"></i></span>
+                Current day <span class="badge img-thumbnail">{{number_format($total_today_orders)}}</span>
+              </a>
+           
+            
+              <a class="nav-link text-dark dropdown-item" href="{{ route('month.sales') }}">
+                <span><i class="far fa-calendar-alt"></i></span>
+                Monthly Sales <span class="badge img-thumbnail">{{number_format($total_month_orders)}}</span>
+              </a>
+          
+            
+              <a class="nav-link text-dark dropdown-item" href="{{ route('quarter.sales') }}">
+                <span><i class="fas fa-calendar-week"></i></span>
+                Last quarter <span class="badge img-thumbnail">{{number_format($total_quater_orders)}}</span>
+              </a>
+           
+           
+              <a class="nav-link text-dark dropdown-item" href="{{ route('year.sales') }}">
+                <span><i class="far fa-calendar"></i></span>
+                Year-end sale <span class="badge img-thumbnail">{{number_format($total_year_orders)}}</span>
+              </a>
+            
+            
+              <a class="nav-link text-dark dropdown-item" href="{{ route('totalorders.index') }}">
+                <span><i class="fas fa-shopping-cart"></i></span>
+                All Time Sales <span class="badge img-thumbnail">{{number_format($all_time_orders)}}</span>
+              </a>
+          
+        </div>
+      </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="{{ route('user.index') }}">
+              <span><i class="fas fa-user"></i></span>
+              Users <span class="badge img-thumbnail">{{number_format($total_users)}}</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-dark" href="#">
               <span><i class="fas fa-search"></i></span>
               Audit
@@ -102,41 +154,20 @@
               SMS <span class="badge img-thumbnail">{{number_format($messages_count)}}</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('account.balance') }}">
-              <span><i class="fas fa-money-bill"></i></span>
+          <li class="nav-item dropdown">
+            <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <span><i class="fas fa-money-bill"></i></span>
               Finances
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('today.sales') }}">
-              <span><i class="fas fa-calendar-day"></i></span>
-              Current day <span class="badge img-thumbnail">{{number_format($total_today_orders)}}</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('month.sales') }}">
-              <span><i class="far fa-calendar-alt"></i></span>
-              Monthly Sales <span class="badge img-thumbnail">{{number_format($total_month_orders)}}</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('quarter.sales') }}">
-              <span><i class="fas fa-calendar-week"></i></span>
-              Last quarter <span class="badge img-thumbnail">{{number_format($total_quater_orders)}}</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('year.sales') }}">
-              <span><i class="far fa-calendar"></i></span>
-              Year-end sale <span class="badge img-thumbnail">{{number_format($total_year_orders)}}</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('totalorders.index') }}">
-              <span><i class="fas fa-shopping-cart"></i></span>
-              All Time Sales <span class="badge img-thumbnail">{{number_format($all_time_orders)}}</span>
-            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ route('rates.index') }}"><i class="fa fa-exchange"></i> Service Rates</a>
+
+              <a class="dropdown-item" href="{{ route('account.balance') }}"><i><img style="width: 20px !important;
+    height: 20px !important;" src="{{ asset('mtn_checkout.png') }}" alt=""></i> MTN Account</a>
+
+              <a class="dropdown-item" href="#"><i><img style="width: 18px !important;
+    height: 18px !important;" src="{{ asset('orange_checkout.png') }}" alt=""></i> Orange Account</a>
+            </div>
           </li>
         </ul>
       @endcan

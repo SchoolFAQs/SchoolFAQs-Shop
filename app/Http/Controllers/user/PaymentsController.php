@@ -42,9 +42,7 @@ class PaymentsController extends Controller
     	$collection = new Collection();
 		$momoTransactionId = $collection->requestToPay($transactId, $customer_tel, $product_price, 'SchoolFAQs Product', 'Payment for '.$product_name);
 		//Save Transaction
-			$order = new Order;
-	        $order->product_name = $request->input('product_name');             
-	        $order->product_price = $request->input('product_price');
+			$order = new Order;             
 	        $order->customer_name = $request->input('customer_name');
 	        $order->customer_tel = '+237'.$request->input('customer_tel');
 	        $order->product_id = $request->input('product_id');
@@ -59,9 +57,7 @@ class PaymentsController extends Controller
 
 		} else // Download Free Product
 			{
-				$order = new Order;
-		        $order->product_name = $request->input('product_name');             
-		        $order->product_price = $request->input('product_price');
+				$order = new Order;            
 		        $order->customer_name = $request->input('customer_name');
 		        $order->customer_tel = '+237'.$request->input('customer_tel');
 		        $order->product_id = $request->input('product_id');
@@ -94,6 +90,7 @@ class PaymentsController extends Controller
         if ($transaction['status'] == 'SUCCESSFUL') {
             $success = true;
             $order = Order::where('transaction_id', $transactionID->transactionID)->first();
+            $order_product = $order->products()->first();
             $order->payment_status = 'SUCCESSFUL';
             $order->save();
             //Send SMS 
@@ -110,7 +107,7 @@ class PaymentsController extends Controller
             ]);
         	$sendSMS = $sms->to($order->customer_tel)
                         ->from(config('app.sms_number'), 'SchoolFAQs')
-                        ->message('Hello '. $order->customer_name. '. Thank you for purchasing \''. $order->product_name. '\' from The SchoolFAQs Shop. We hope to serve you again soon. You can download your product using this link: '.$url)
+                        ->message('Hello '. $order->customer_name. '. Thank you for purchasing \''. $order_product->product_name. '\' from The SchoolFAQs Shop. We hope to serve you again soon. You can download your product using this link: '.$url)
                         ->send();
 	        //Audit Message
 	        $smsaudit = new Message;

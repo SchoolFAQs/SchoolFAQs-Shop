@@ -134,6 +134,5 @@ input[type="submit"] {
 }
 
 .product img {
-    height:250px;
-    width:100%;
+    width:75%;
 }

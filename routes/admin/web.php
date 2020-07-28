@@ -28,6 +28,7 @@ Route::domain('shop.'. config('app.domain'))->group(function () {
 	        Route::get('uservendors/{id}', 'VendorsController@create')->name('uservendors.create');
 			Route::resource('uservendors', 'VendorsController' , ['except' => ['create']]);
 			Route::get('profile/{id}', 'PageController@profile')->name('user.profile');
+			//Route::resource('wallet', 'WithdrawalsController');
 
 				// Admin Routes
 				Route::middleware(['Admin'])->group(function() {
@@ -44,17 +45,20 @@ Route::domain('shop.'. config('app.domain'))->group(function () {
 			
 				// SuperAdmin Routes
 				Route::middleware(['superAdmin'])->group(function() {
-					Route::resource('adminproducts','SuperadminProductsController');
-					Route::get('adminvendors/{id}', 'SuperAdminVendorController@create')->name('vendors.create');
-					Route::resource('adminvendors', 'SuperAdminVendorController', ['except' => ['create']]);
-					Route::resource('user', 'UserController');
 					Route::get('todaysales', 'TotalOrdersController@today_sales')->name('today.sales');
 					Route::get('monthsales', 'TotalOrdersController@month_sales')->name('month.sales');
 					Route::get('quartersales', 'TotalOrdersController@quarter_sales')->name('quarter.sales');
 					Route::get('yearsales', 'TotalOrdersController@year_sales')->name('year.sales');
+					Route::get('accountbalance', 'FinancesController@getbalance')->name('account.balance');
+					Route::resource('adminproducts','SuperadminProductsController');
+					Route::get('adminvendors/{id}', 'SuperAdminVendorController@assign_rate')->name('vendorrate.assign');
+					Route::resource('adminvendors', 'SuperAdminVendorController', ['except' => ['create']]);		
+					Route::post('adminvendors', 'SuperAdminVendorController@save_rate')->name('vendorrate.save');
+					Route::get('adminvendors/{id}', 'SuperAdminVendorController@create')->name('vendors.create');
+					Route::resource('user', 'UserController');
 					Route::resource('totalorders', 'TotalOrdersController');
 					Route::resource('sms', 'SmsController');
-					Route::get('accountbalance', 'FinancesController@getbalance')->name('account.balance');
+					Route::resource('rates', 'RatesController');
 				});	
 				
 		});

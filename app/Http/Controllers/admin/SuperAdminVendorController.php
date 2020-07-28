@@ -5,9 +5,11 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Mediumart\Orange\SMS\SMS;
+use DB;
 use Mediumart\Orange\SMS\Http\SMSClient;
 use Spatie\Activitylog\Models\Activity;
 use App\Models\Vendor;
+use App\Models\Rate;
 use App\User;
 
 
@@ -22,11 +24,31 @@ class SuperAdminVendorController extends Controller
     {
         $this->middleware('superAdmin');
     }
+
+    public function assign_rate($id){
+        $vendor = Vendor::find($id);
+        $rates = Rate::all();
+        return view('admin.superadmin.rates.rates_assign_vendor', compact('vendor', 'rates'));
+    }
+
+
+    public function save_rate(Request $request){
+        $vendor = Vendor::find($request->input('vendor_id'));
+        $rate = Rate::find($request->input('rate_id'));
+        $rate_value = $rate->rate_value;
+        $vendor->rate = $rate_value;
+        $vendor->save();
+        //$vendor_rate->rates()->attach($rate_id);
+        return redirect(route('adminvendors.index'));
+    }
+
+
     public function index()
     {
         //
-        $vendors = Vendor:: orderBy('created_at', 'desc')->paginate(8);
-        return view('admin.superadmin.vendors.vendor_list', compact('vendors'));
+        $rates = Rate::all();
+        $vendors = Vendor::orderBy('created_at', 'desc')->paginate(8);
+        return view('admin.superadmin.vendors.vendor_list', compact('vendors', 'rates'));
     }
 
     /**

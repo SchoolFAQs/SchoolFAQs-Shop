@@ -25,10 +25,13 @@ class Vendor extends Model
     {
         return 'slug';
     }
-    protected $fillable = ['id', 'user_name', 'vendor_name', 'vendor_email', 'vendor_image', 'vendor_about'];
+    protected $fillable = ['id', 'user_name', 'vendor_name', 'vendor_email', 'vendor_image', 'vendor_about', 'rate'];
     protected $table = 'vendors';
     public function products() {
     	return $this->hasMany(Product::class);
+    }
+    public function rates() {
+        return $this->belongsToMany(Rate::class)->withTimestamps();
     }
     public function toSearchableArray()
     {

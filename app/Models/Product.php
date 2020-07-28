@@ -40,7 +40,10 @@ class Product extends Model
     	return $this->belongsToMany(Category::class)->withTimestamps();
     }
     public function orders() {
-        return $this->belongsToMany(Order::class)->withTimestamps();
+        return $this->hasMany(Order::class)->withTimestamps();
+    }
+    public function rates() {
+        return $this->belongsToMany(Rate::class)->withTimestamps();
     }
     public function toSearchableArray()
     {

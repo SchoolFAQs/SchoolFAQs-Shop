@@ -19,9 +19,9 @@
      				<h1>Total Income <i class="fa fa-money"></i></h1>
      			</div>
      			<div class="card-body text-success">
-     				<h2>
-     					{{number_format($totalMoney)}} FCFA
-     				</h2>
+     				<h2 id="tot_mon">
+                        {{number_format($totalIncome)}} FCFA
+                    </h2>
      			</div>
      		</div>
      	</div>
@@ -29,7 +29,7 @@
                         
                    
  
-	<table class="table table-dark">
+	<table id="ord" class="table table-dark">
 		<thead>
 			<tr>
 				<th>Product Name</th>
@@ -39,28 +39,45 @@
                     <th>Income</th>
 				<th>Order Date</th>
 				<th>Shop</th>
+                    <th>RATE</th>
 			</tr>
 		</thead>
-			@foreach($order as $o)
-				@if(Auth()->User()->email == $o->vendor_email)
+			@foreach($orders as $order)
+				@if(Auth()->User()->email == $order->vendor_email)
 					<tbody class="table-light text-dark">
-						<tr>
-							<td><i class="fas fa-book"></i> {{$o->product_name}}</td>
-                                   <td><i class="fas fa-money-bill"></i> {{number_format($o->product_price)}}</td>
-                                   <td><i class="fas fa-money-bill"></i> {{number_format($o->product_price/$vat)}}</td>
-                                   <td><i class="fas fa-money-bill"></i> {{number_format($o->product_price - $o->product_price/$vat)}}</td>
-                                   <td><i class="fas fa-money-bill"></i> {{number_format($o->product_price/$vat - (($o->product_price/$vat) * config('app.rate')))}}</td>
-                                   
-							<td><i class="far fa-calender"></i> {{$o->created_at}}</td>
-							@foreach($products as $p)
-								@if($o->product_id == $p->id)
-									<td><i class="fas fa-store"></i> {{$p->vendor->vendor_name}}</td>
-								@endif
-							@endforeach	
-						</tr>						
-					</tbody>
-				@endif					
-			@endforeach
-	</table>		
-{{$order->links()}}
+                        <tr>
+                            @foreach($order->products as $op)
+                                <td><i class="fas fa-book"></i> {{$op->product_name}}</td>
+                                <td><i class="fas fa-money-bill"></i> {{number_format($op->product_price * $vat)}}</td>
+                                <td><i class="fas fa-money-bill"></i> {{number_format($vat*$op->product_price/$vat)}}</td>
+                                <td><i class="fas fa-money-bill"></i> {{number_format($op->product_price*$vat - $vat*$op->product_price/$vat)}}</td>
+                                
+
+                                @if($order->product_id == $op->id)
+                                    <td class="my_income">{{number_format($vat*$op->product_price/$vat * (1-$op->vendor->rate))}}</td>
+                                @endif
+
+                                <td><i class="far fa-calender"></i> {{$order->created_at}}</td>
+
+                                @if($order->product_id == $op->id)
+                                    <td><i class="fas fa-store"></i> {{$op->vendor->vendor_name}}</td>
+                                    <td>{{$op->vendor->rate * 100}}%</td>
+                                @endif
+                            @endforeach
+                        </tr>
+                    </tbody>
+                @endif
+            @endforeach
+    </table>		
+{{ $orders->links() }}
+    <script language="javascript" type="text/javascript">
+         /*   var tds = document.getElementById('ord').getElementsByTagName('td');
+            var sum = 0;
+            for(var i = 0; i < tds.length; i ++) {
+                if(tds[i].className == 'my_income') {
+                    sum += isNaN(tds[i].innerHTML) ? 0 : parseInt(tds[i].innerHTML);
+                }
+            }
+            document.getElementById('tot_mon').innerHTML += sum;
+     </script>
 @endsection

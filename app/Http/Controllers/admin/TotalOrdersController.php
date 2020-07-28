@@ -25,68 +25,214 @@ class TotalOrdersController extends Controller
     public function index()
     {
         //
-        $order = Order::orderBy('created_at', 'desc')->paginate(10);
-        $product = Product::with('vendor')->get();
-        $totalOrders = Order::count();
-        $totalMon = Order::where('payment_status', '=', 'SUCCESSFUL')->sum('product_price');
-        $totalMoney = $totalMon * config('app.rate');
+        $paidOrder = ['payment_status' => 'SUCCESSFUL'];
+        //Get all orders
+        $order = Order::with('products.vendor')->paginate(10);
+        $totalOrders = sizeof($order); //Get number of alll daily orders
+        //Get all successfully paid orders
+        $paidOrders = Order::with('products.vendor')->where($paidOrder)->get();
+        $totalPaidOrders = sizeof($paidOrders);
+        //Get VAT 
         $vat = config('app.vat_rate');
-        $vat_value =  $totalMon - $totalMon/$vat;
-        return view('admin.superadmin.orders.total_orders', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat_value', 'vat'));
+        //Get Total Money
+        foreach ($paidOrders as $po) {
+            $totalMoney = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                     $vat = config('app.vat_rate');
+                    return ($op->product_price * $vat);
+                }
+            });       
+        }
+        //Get Total NetIncome
+        foreach ($paidOrders as $po) {
+            $totalNetIncome = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                    return ($op->product_price);
+                }
+            });       
+        } 
+        //Get Total Income
+        foreach ($paidOrders as $po) {
+            $totalIncome = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                    return ($op->product_price * $op->vendor->rate);
+                }
+            });       
+        }      
+        //Total Vat
+        $totalVat = $totalMoney - $totalNetIncome;
+        return view('admin.superadmin.orders.total_orders', compact('order', 'totalOrders', 'totalMoney', 'paidOrders', 'totalPaidOrders', 'totalNetIncome', 'totalIncome', 'vat', 'totalVat'));
     }
+
     public function today_sales()
     {
         //
-        
-        $order = Order::whereDate('created_at', date('Y-m-d'))->get();
-        $product = Product::with('vendor')->get();
-        $totalOrders = Order::whereDate('created_at', date('Y-m-d'))->count();
-        $totalMon = Order::where('payment_status', '=', 'SUCCESSFUL')->whereDate('created_at', date('Y-m-d'))->sum('product_price');
-        $totalMoney = $totalMon * config('app.rate');
+        $paidOrder = ['payment_status' => 'SUCCESSFUL'];
+        //Get all orders
+        $order = Order::with('products.vendor')->whereDate('created_at', date('Y-m-d'))->paginate(10);
+        $totalOrders = sizeof($order); //Get number of alll daily orders
+        //Get all successfully paid orders
+        $paidOrders = Order::with('products.vendor')->whereDate('created_at', date('Y-m-d'))->where($paidOrder)->get();
+        $totalPaidOrders = sizeof($paidOrders);
+        //Get VAT 
         $vat = config('app.vat_rate');
-        $vat_value =  $totalMon - $totalMon/$vat;  
-        return view('admin.superadmin.orders.today_sales', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat', 'vat_value'));
+        //Get Total Money
+        foreach ($paidOrders as $po) {
+            $totalMoney = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                     $vat = config('app.vat_rate');
+                    return ($op->product_price * $vat);
+                }
+            });       
+        }
+        //Get Total NetIncome
+        foreach ($paidOrders as $po) {
+            $totalNetIncome = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                    return ($op->product_price);
+                }
+            });       
+        } 
+        //Get Total Income
+        foreach ($paidOrders as $po) {
+            $totalIncome = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                    return ($op->product_price * $op->vendor->rate);
+                }
+            });       
+        }      
+        //Total Vat
+        $totalVat = $totalMoney - $totalNetIncome; 
+
+        
+        return view('admin.superadmin.orders.today_sales', compact('order', 'totalOrders', 'totalMoney', 'paidOrders', 'totalPaidOrders', 'totalNetIncome', 'totalIncome', 'vat', 'totalVat'));
     }
+
+
     public function month_sales()
     {
-        //
-        
-        $order = Order::whereMonth('created_at', Carbon::now()->month)->get();
-        $product = Product::with('vendor')->get();
-        $totalOrders = Order::whereMonth('created_at', Carbon::now()->month)->count();
-        $totalMon = Order::where('payment_status', '=', 'SUCCESSFUL')->whereMonth('created_at', Carbon::now()->month)->sum('product_price');
-        $totalMoney = $totalMon * config('app.rate');
+        //     
+        $paidOrder = ['payment_status' => 'SUCCESSFUL'];
+        //Get all orders
+        $order = Order::with('products.vendor')->whereMonth('created_at', Carbon::now()->month)->paginate(10);
+        $totalOrders = sizeof($order); //Get number of alll daily orders
+        //Get all successfully paid orders
+        $paidOrders = Order::with('products.vendor')->whereMonth('created_at', Carbon::now()->month)->where($paidOrder)->get();
+        $totalPaidOrders = sizeof($paidOrders);
+        //Get VAT 
         $vat = config('app.vat_rate');
-        $vat_value =  $totalMon - $totalMon/$vat;
-        return view('admin.superadmin.orders.month_sales', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat_value', 'vat'));
+        //Get Total Money
+        foreach ($paidOrders as $po) {
+            $totalMoney = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                     $vat = config('app.vat_rate');
+                    return ($op->product_price * $vat);
+                }
+            });       
+        }
+        //Get Total NetIncome
+        foreach ($paidOrders as $po) {
+            $totalNetIncome = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                    return ($op->product_price);
+                }
+            });       
+        } 
+        //Get Total Income
+        foreach ($paidOrders as $po) {
+            $totalIncome = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                    return ($op->product_price * $op->vendor->rate);
+                }
+            });       
+        }      
+        //Total Vat
+        $totalVat = $totalMoney - $totalNetIncome;
+        return view('admin.superadmin.orders.month_sales', compact('order', 'totalOrders', 'totalMoney', 'paidOrders', 'totalPaidOrders', 'totalNetIncome', 'totalIncome', 'vat', 'totalVat'));
     }
 
      public function quarter_sales()
-    {
-        //
-        
-        $order = Order::where('created_at','>=',Carbon::now()->subdays(60))->get();
-        $product = Product::with('vendor')->get();
-        $totalOrders = Order::where('created_at','>=',Carbon::now()->subdays(60))->count();
-        $totalMon = Order::where('payment_status', '=', 'SUCCESSFUL')->where('created_at','>=',Carbon::now()->subdays(60))->sum('product_price');
-        $totalMoney = $totalMon * config('app.rate');
+    {       
+        //     
+        $paidOrder = ['payment_status' => 'SUCCESSFUL'];
+        //Get all orders
+        $order = Order::with('products.vendor')->where('created_at','>=',Carbon::now()->subdays(60))->paginate(10);
+        $totalOrders = sizeof($order); //Get number of alll daily orders
+        //Get all successfully paid orders
+        $paidOrders = Order::with('products.vendor')->where('created_at','>=',Carbon::now()->subdays(60))->where($paidOrder)->get();
+        $totalPaidOrders = sizeof($paidOrders);
+        //Get VAT 
         $vat = config('app.vat_rate');
-        $vat_value =  $totalMon - $totalMon/$vat;
-        return view('admin.superadmin.orders.quarter_sales', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat', 'vat_value'));
+        //Get Total Money
+        foreach ($paidOrders as $po) {
+            $totalMoney = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                     $vat = config('app.vat_rate');
+                    return ($op->product_price * $vat);
+                }
+            });       
+        }
+        //Get Total NetIncome
+        foreach ($paidOrders as $po) {
+            $totalNetIncome = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                    return ($op->product_price);
+                }
+            });       
+        } 
+        //Get Total Income
+        foreach ($paidOrders as $po) {
+            $totalIncome = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                    return ($op->product_price * $op->vendor->rate);
+                }
+            });       
+        }      
+        //Total Vat
+        $totalVat = $totalMoney - $totalNetIncome;
+        return view('admin.superadmin.orders.quarter_sales', compact('order', 'totalOrders', 'totalMoney', 'paidOrders', 'totalPaidOrders', 'totalNetIncome', 'totalIncome', 'vat', 'totalVat'));
     }
 
     public function year_sales()
     {
-        //
-        
-        $order = Order::whereYear('created_at', Carbon::now()->year)->get();
-        $product = Product::with('vendor')->get();
-        $totalOrders = Order::whereYear('created_at', Carbon::now()->year)->count();
-        $totalMon = Order::where('payment_status', '=', 'SUCCESSFUL')->whereYear('created_at', Carbon::now()->year)->sum('product_price');
-        $totalMoney = $totalMon * config('app.rate');
+        //     
+        $paidOrder = ['payment_status' => 'SUCCESSFUL'];
+        //Get all orders
+        $order = Order::with('products.vendor')->whereYear('created_at', Carbon::now()->year)->paginate(10);
+        $totalOrders = sizeof($order); //Get number of alll daily orders
+        //Get all successfully paid orders
+        $paidOrders = Order::with('products.vendor')->whereYear('created_at', Carbon::now()->year)->where($paidOrder)->get();
+        $totalPaidOrders = sizeof($paidOrders);
+        //Get VAT 
         $vat = config('app.vat_rate');
-        $vat_value = $totalMon - $totalMon/$vat;
-        return view('admin.superadmin.orders.year_sales', compact('order', 'product', 'totalMoney', 'totalOrders' , 'totalMon', 'vat', 'vat_value'));
+        //Get Total Money
+        foreach ($paidOrders as $po) {
+            $totalMoney = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                     $vat = config('app.vat_rate');
+                    return ($op->product_price * $vat);
+                }
+            });       
+        }
+        //Get Total NetIncome
+        foreach ($paidOrders as $po) {
+            $totalNetIncome = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                    return ($op->product_price);
+                }
+            });       
+        } 
+        //Get Total Income
+        foreach ($paidOrders as $po) {
+            $totalIncome = $paidOrders->sum(function ($order) {
+                foreach($order->products as $op){
+                    return ($op->product_price * $op->vendor->rate);
+                }
+            });       
+        }      
+        //Total Vat
+        $totalVat = $totalMoney - $totalNetIncome;
+        return view('admin.superadmin.orders.year_sales', compact('order', 'totalOrders', 'totalMoney', 'paidOrders', 'totalPaidOrders', 'totalNetIncome', 'totalIncome', 'vat', 'totalVat'));
     }
 
     /**

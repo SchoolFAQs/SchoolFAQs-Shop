@@ -30,7 +30,9 @@
                 <input type="text" value="{{round($product->product_price * $vat)}}" readonly="" class="form-control my-2 py-3" name="product_price">
               </div>  
               <input type="hidden" name="product_id" value="{{$product->id}}">
-              <input type="hidden" name="vendor_email" value="{{$product->vendor->vendor_email}}">    
+              <input type="hidden" name="vendor_email" value="{{$product->vendor->vendor_email}}">
+              <input type="hidden" name="vendor_rate" value="{{$product->vendor->rate}}">
+              <input type="hidden" name="vendor_id" value="{{$product->vendor->id}}">    
               <input type="submit" id="pay" class="btn mt-2 mr-2 rounded-pill btn-primary" value="Pay {{number_format($product->product_price * $vat)}} FCFA">
             @csrf
     		  </form>
