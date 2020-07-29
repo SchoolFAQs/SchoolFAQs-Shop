@@ -15,7 +15,7 @@ class ChangePriceInordersToFloat extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             //
-            $table->integer('product_price')->change();
+            $table->integer('product_price')->nullable()->change();
         });
     }
 
