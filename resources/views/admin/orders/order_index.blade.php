@@ -48,13 +48,13 @@
                         <tr>
                             @foreach($order->products as $op)
                                 <td><i class="fas fa-book"></i> {{$op->product_name}}</td>
-                                <td><i class="fas fa-money-bill"></i> {{number_format($order->product_price)}}</td>
-                                <td><i class="fas fa-money-bill"></i> {{number_format($order->product_price/$vat)}}</td>
-                                <td><i class="fas fa-money-bill"></i> {{number_format($order->product_price*$vat - $vat*$order->product_price/$vat)}}</td>
+                                <td><i class="fas fa-money-bill"></i> {{$order->product_price}}</td>
+                                <td><i class="fas fa-money-bill"></i> {{$order->product_price/$vat}}</td>
+                                <td><i class="fas fa-money-bill"></i> {{$order->product_price*$vat - $vat*$order->product_price/$vat}}</td>
                                 
 
                                 @if($order->product_id == $op->id)
-                                    <td class="my_income">{{number_format($order->product_price/$vat * (1-$op->vendor->rate))}}</td>
+                                    <td class="my_income">{{$order->product_price/$vat * (1-$op->vendor->rate)}}</td>
                                 @endif
 
                                 <td><i class="far fa-calender"></i> {{$order->created_at}}</td>

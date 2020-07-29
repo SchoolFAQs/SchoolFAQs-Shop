@@ -88,7 +88,7 @@
                                    <td><i class="fas fa-phone"></i> {{$o->customer_tel}}</td>
                                    @foreach($o->products as $op)
                                         <td><i class="fas fa-book"></i> {{$op->product_name}}</td>
-                                        <td><i class="fa fa-money"></i> {{number_format($o->product_price)}} FCFA</td>
+                                        <td><i class="fa fa-money"></i> {{$o->product_price}} FCFA</td>
                                    <td><i class="far fa-calendar-alt"></i> {{$o->created_at}}</td>
                                    <td><i class="far fa-"></i> {{$o->payment_status}}</td>
                                    @if($o->is_downloaded == 1)
