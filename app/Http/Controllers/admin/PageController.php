@@ -66,7 +66,7 @@ class PageController extends Controller
         $myOrders = ['vendor_email' => Auth()->User()->email, 'payment_status' => 'SUCCESSFUL'];
         $orders = Order::with('products.vendor')->where($myOrders)->paginate(10);   
         $vat = config('app.vat_rate');        
-        $totalOrders = sizeof($orders);
+        $totalOrders = Order::where($myOrders)->count();
         foreach ($orders as $oo) {
             $totalIncome = $orders->sum(function ($order) {
                 foreach($order->products as $op){
