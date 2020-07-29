@@ -22,7 +22,7 @@
 	      </div>
 	      <div class="modal-body">
 	        <h2 class="text-center">Privacy Policy for SchoolFAQs CO. LTD</h2>
-			<p>At SchoolFAQs Shop, accessible from https://schoolfaqs.shop, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by SchoolFAQs Shop and how we use it.</p>
+			<p>At SchoolFAQs Shop, accessible from https://shop.schoolfaqs.net, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by SchoolFAQs Shop and how we use it.</p>
 
 			<p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.</p>
 

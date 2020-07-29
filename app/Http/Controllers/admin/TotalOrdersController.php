@@ -59,6 +59,11 @@ class TotalOrdersController extends Controller
                 }
             });       
         }      
+        if ($totalPaidOrders == 0) {
+                $totalMoney = 0;
+                $totalNetIncome = 0;
+                $totalIncome = 0;
+            }
         //Total Vat
         $totalVat = $totalMoney - $totalNetIncome;
         return view('admin.superadmin.orders.total_orders', compact('order', 'totalOrders', 'totalMoney', 'paidOrders', 'totalPaidOrders', 'totalNetIncome', 'totalIncome', 'vat', 'totalVat'));
@@ -70,7 +75,7 @@ class TotalOrdersController extends Controller
         $paidOrder = ['payment_status' => 'SUCCESSFUL'];
         //Get all orders
         $order = Order::with('products.vendor')->whereDate('created_at', date('Y-m-d'))->paginate(10);
-        $totalOrders = sizeof($order); //Get number of all daily orders
+        $totalOrders = Order::whereDate('created_at', date('Y-m-d'))->count(); //Get number of all daily orders
         //Get all successfully paid orders
         $paidOrders = Order::with('products.vendor')->whereDate('created_at', date('Y-m-d'))->where($paidOrder)->get();
         $totalPaidOrders = sizeof($paidOrders);
@@ -78,13 +83,19 @@ class TotalOrdersController extends Controller
         $vat = config('app.vat_rate');
         //Get Total Money
         foreach ($paidOrders as $po) {
-            $totalMoney = $paidOrders->sum(function ($order) {
-                foreach($order->products as $op){
-                     $vat = config('app.vat_rate');
+                $totalMoney = $paidOrders->sum(function ($order) {
+                    foreach($order->products as $op){
+                        $vat = config('app.vat_rate');
                     return ($op->product_price * $vat);
-                }
-            });       
-        }
+                    }
+                });  
+            }
+
+            if ($totalPaidOrders == 0) {
+                $totalMoney = 0;
+                $totalNetIncome = 0;
+                $totalIncome = 0;
+            }
         //Get Total NetIncome
         foreach ($paidOrders as $po) {
             $totalNetIncome = $paidOrders->sum(function ($order) {
@@ -93,6 +104,7 @@ class TotalOrdersController extends Controller
                 }
             });       
         } 
+
         //Get Total Income
         foreach ($paidOrders as $po) {
             $totalIncome = $paidOrders->sum(function ($order) {
@@ -115,7 +127,7 @@ class TotalOrdersController extends Controller
         $paidOrder = ['payment_status' => 'SUCCESSFUL'];
         //Get all orders
         $order = Order::with('products.vendor')->whereMonth('created_at', Carbon::now()->month)->paginate(10);
-        $totalOrders = sizeof($order); //Get number of alll daily orders
+        $totalOrders = Order::whereMonth('created_at', Carbon::now()->month)->count(); //Get number of alll daily orders
         //Get all successfully paid orders
         $paidOrders = Order::with('products.vendor')->whereMonth('created_at', Carbon::now()->month)->where($paidOrder)->get();
         $totalPaidOrders = sizeof($paidOrders);
@@ -146,6 +158,11 @@ class TotalOrdersController extends Controller
                 }
             });       
         }      
+        if ($totalPaidOrders == 0) {
+                $totalMoney = 0;
+                $totalNetIncome = 0;
+                $totalIncome = 0;
+            }
         //Total Vat
         $totalVat = $totalMoney - $totalNetIncome;
         return view('admin.superadmin.orders.month_sales', compact('order', 'totalOrders', 'totalMoney', 'paidOrders', 'totalPaidOrders', 'totalNetIncome', 'totalIncome', 'vat', 'totalVat'));
@@ -157,7 +174,7 @@ class TotalOrdersController extends Controller
         $paidOrder = ['payment_status' => 'SUCCESSFUL'];
         //Get all orders
         $order = Order::with('products.vendor')->where('created_at','>=',Carbon::now()->subdays(60))->paginate(10);
-        $totalOrders = sizeof($order); //Get number of alll daily orders
+        $totalOrders = Order::where('created_at','>=',Carbon::now()->subdays(60))->count(); //Get number of alll daily orders
         //Get all successfully paid orders
         $paidOrders = Order::with('products.vendor')->where('created_at','>=',Carbon::now()->subdays(60))->where($paidOrder)->get();
         $totalPaidOrders = sizeof($paidOrders);
@@ -188,6 +205,11 @@ class TotalOrdersController extends Controller
                 }
             });       
         }      
+        if ($totalPaidOrders == 0) {
+                $totalMoney = 0;
+                $totalNetIncome = 0;
+                $totalIncome = 0;
+            }
         //Total Vat
         $totalVat = $totalMoney - $totalNetIncome;
         return view('admin.superadmin.orders.quarter_sales', compact('order', 'totalOrders', 'totalMoney', 'paidOrders', 'totalPaidOrders', 'totalNetIncome', 'totalIncome', 'vat', 'totalVat'));
@@ -199,7 +221,7 @@ class TotalOrdersController extends Controller
         $paidOrder = ['payment_status' => 'SUCCESSFUL'];
         //Get all orders
         $order = Order::with('products.vendor')->whereYear('created_at', Carbon::now()->year)->paginate(10);
-        $totalOrders = sizeof($order); //Get number of alll daily orders
+        $totalOrders = Order::whereYear('created_at', Carbon::now()->year)->count(); //Get number of alll daily orders
         //Get all successfully paid orders
         $paidOrders = Order::with('products.vendor')->whereYear('created_at', Carbon::now()->year)->where($paidOrder)->get();
         $totalPaidOrders = sizeof($paidOrders);
@@ -230,6 +252,11 @@ class TotalOrdersController extends Controller
                 }
             });       
         }      
+        if ($totalPaidOrders == 0) {
+                $totalMoney = 0;
+                $totalNetIncome = 0;
+                $totalIncome = 0;
+            }
         //Total Vat
         $totalVat = $totalMoney - $totalNetIncome;
         return view('admin.superadmin.orders.year_sales', compact('order', 'totalOrders', 'totalMoney', 'paidOrders', 'totalPaidOrders', 'totalNetIncome', 'totalIncome', 'vat', 'totalVat'));
