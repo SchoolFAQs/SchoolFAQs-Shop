@@ -69,7 +69,7 @@
                 @endif
             @endforeach
     </table>		
-{{ $orders->links() }}
+
     <script language="javascript" type="text/javascript">
          /*   var tds = document.getElementById('ord').getElementsByTagName('td');
             var sum = 0;
