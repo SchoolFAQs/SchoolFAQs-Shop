@@ -39,7 +39,6 @@ class TotalOrdersController extends Controller
             $totalMoney = $paidOrders->sum(function ($order) {
                      $vat = config('app.vat_rate');
                     return ($order->product_price);
-
             });       
         }
         //Get Total NetIncome
