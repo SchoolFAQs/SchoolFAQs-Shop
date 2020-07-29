@@ -69,9 +69,10 @@ class PageController extends Controller
         $totalOrders = Order::where($myOrders)->count();
         foreach ($orders as $oo) {
             $totalIncome = $orders->sum(function ($order) {
-                foreach($order->products as $op){
-                    return ($op->product_price * (1 - $op->vendor->rate));
-                }
+                   foreach($order->products as $op){
+                    $vat = config('app.vat_rate');
+                        return ($order->product_price/$vat * (1 - $op->vendor->rate) );     
+                } 
             });       
         }      
 

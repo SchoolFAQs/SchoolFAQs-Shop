@@ -37,25 +37,25 @@ class TotalOrdersController extends Controller
         //Get Total Money
         foreach ($paidOrders as $po) {
             $totalMoney = $paidOrders->sum(function ($order) {
-                foreach($order->products as $op){
                      $vat = config('app.vat_rate');
-                    return ($op->product_price * $vat);
-                }
+                    return ($order->product_price);
+
             });       
         }
         //Get Total NetIncome
         foreach ($paidOrders as $po) {
             $totalNetIncome = $paidOrders->sum(function ($order) {
-                foreach($order->products as $op){
-                    return ($op->product_price);
-                }
+                $vat = config('app.vat_rate');
+                    return ($order->product_price/$vat);
+
             });       
         } 
         //Get Total Income
         foreach ($paidOrders as $po) {
             $totalIncome = $paidOrders->sum(function ($order) {
                 foreach($order->products as $op){
-                    return ($op->product_price * $op->vendor->rate);
+                    $vat = config('app.vat_rate');
+                    return ($order->product_price/$vat * $op->vendor->rate);
                 }
             });       
         }      
@@ -83,36 +83,34 @@ class TotalOrdersController extends Controller
         $vat = config('app.vat_rate');
         //Get Total Money
         foreach ($paidOrders as $po) {
-                $totalMoney = $paidOrders->sum(function ($order) {
-                    foreach($order->products as $op){
-                        $vat = config('app.vat_rate');
-                    return ($op->product_price * $vat);
-                    }
-                });  
-            }
+            $totalMoney = $paidOrders->sum(function ($order) {
+                     $vat = config('app.vat_rate');
+                    return ($order->product_price);
 
-            if ($totalPaidOrders == 0) {
-                $totalMoney = 0;
-                $totalNetIncome = 0;
-                $totalIncome = 0;
-            }
+            });       
+        }
         //Get Total NetIncome
         foreach ($paidOrders as $po) {
             $totalNetIncome = $paidOrders->sum(function ($order) {
-                foreach($order->products as $op){
-                    return ($op->product_price);
-                }
+                $vat = config('app.vat_rate');
+                    return ($order->product_price/$vat);
+
             });       
         } 
-
         //Get Total Income
         foreach ($paidOrders as $po) {
             $totalIncome = $paidOrders->sum(function ($order) {
                 foreach($order->products as $op){
-                    return ($op->product_price * $op->vendor->rate);
+                    $vat = config('app.vat_rate');
+                    return ($order->product_price/$vat * $op->vendor->rate);
                 }
             });       
-        }      
+        }     
+        if ($totalPaidOrders == 0) {
+                $totalMoney = 0;
+                $totalNetIncome = 0;
+                $totalIncome = 0;
+            }
         //Total Vat
         $totalVat = $totalMoney - $totalNetIncome; 
 
@@ -136,25 +134,25 @@ class TotalOrdersController extends Controller
         //Get Total Money
         foreach ($paidOrders as $po) {
             $totalMoney = $paidOrders->sum(function ($order) {
-                foreach($order->products as $op){
                      $vat = config('app.vat_rate');
-                    return ($op->product_price * $vat);
-                }
+                    return ($order->product_price);
+
             });       
         }
         //Get Total NetIncome
         foreach ($paidOrders as $po) {
             $totalNetIncome = $paidOrders->sum(function ($order) {
-                foreach($order->products as $op){
-                    return ($op->product_price);
-                }
+                $vat = config('app.vat_rate');
+                    return ($order->product_price/$vat);
+
             });       
         } 
         //Get Total Income
         foreach ($paidOrders as $po) {
             $totalIncome = $paidOrders->sum(function ($order) {
                 foreach($order->products as $op){
-                    return ($op->product_price * $op->vendor->rate);
+                    $vat = config('app.vat_rate');
+                    return ($order->product_price/$vat * $op->vendor->rate);
                 }
             });       
         }      
@@ -183,28 +181,28 @@ class TotalOrdersController extends Controller
         //Get Total Money
         foreach ($paidOrders as $po) {
             $totalMoney = $paidOrders->sum(function ($order) {
-                foreach($order->products as $op){
                      $vat = config('app.vat_rate');
-                    return ($op->product_price * $vat);
-                }
+                    return ($order->product_price);
+
             });       
         }
         //Get Total NetIncome
         foreach ($paidOrders as $po) {
             $totalNetIncome = $paidOrders->sum(function ($order) {
-                foreach($order->products as $op){
-                    return ($op->product_price);
-                }
+                $vat = config('app.vat_rate');
+                    return ($order->product_price/$vat);
+
             });       
         } 
         //Get Total Income
         foreach ($paidOrders as $po) {
             $totalIncome = $paidOrders->sum(function ($order) {
                 foreach($order->products as $op){
-                    return ($op->product_price * $op->vendor->rate);
+                    $vat = config('app.vat_rate');
+                    return ($order->product_price/$vat * $op->vendor->rate);
                 }
             });       
-        }      
+        }
         if ($totalPaidOrders == 0) {
                 $totalMoney = 0;
                 $totalNetIncome = 0;
@@ -225,33 +223,33 @@ class TotalOrdersController extends Controller
         //Get all successfully paid orders
         $paidOrders = Order::with('products.vendor')->whereYear('created_at', Carbon::now()->year)->where($paidOrder)->get();
         $totalPaidOrders = sizeof($paidOrders);
-        //Get VAT 
+       //Get VAT 
         $vat = config('app.vat_rate');
         //Get Total Money
         foreach ($paidOrders as $po) {
             $totalMoney = $paidOrders->sum(function ($order) {
-                foreach($order->products as $op){
                      $vat = config('app.vat_rate');
-                    return ($op->product_price * $vat);
-                }
+                    return ($order->product_price);
+
             });       
         }
         //Get Total NetIncome
         foreach ($paidOrders as $po) {
             $totalNetIncome = $paidOrders->sum(function ($order) {
-                foreach($order->products as $op){
-                    return ($op->product_price);
-                }
+                $vat = config('app.vat_rate');
+                    return ($order->product_price/$vat);
+
             });       
         } 
         //Get Total Income
         foreach ($paidOrders as $po) {
             $totalIncome = $paidOrders->sum(function ($order) {
                 foreach($order->products as $op){
-                    return ($op->product_price * $op->vendor->rate);
+                    $vat = config('app.vat_rate');
+                    return ($order->product_price/$vat * $op->vendor->rate);
                 }
             });       
-        }      
+        }
         if ($totalPaidOrders == 0) {
                 $totalMoney = 0;
                 $totalNetIncome = 0;

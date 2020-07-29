@@ -46,6 +46,7 @@ class PaymentsController extends Controller
 	        $order->customer_name = $request->input('customer_name');
 	        $order->customer_tel = '+237'.$request->input('customer_tel');
 	        $order->product_id = $request->input('product_id');
+            $order->product_price = $request->input('product_price');
 	        $order->vendor_email = $request->input('vendor_email');
 	        $order->product_type = 'PAID';
 	        $order->transact_id = $transactId;
