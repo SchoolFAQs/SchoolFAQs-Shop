@@ -13,6 +13,7 @@ use App\User;
 use Carbon\Carbon;
 use App\Models\Apply;
 use App\Models\Message;
+use App\Models\Withdraw;
 
 class SidebarComposer
 {
@@ -35,6 +36,7 @@ class SidebarComposer
         		'total_quater_orders' => Order::where('created_at','>=',Carbon::now()->subdays(60))->count(),
         		'total_year_orders' => Order::whereYear('created_at', Carbon::now()->year)->count(),
         		'all_time_orders' => Order::all()->count(),
+                'withdraw_requst' => Withdraw::where('withdraw_status', NULL)->count(),
 
         ]);
     }

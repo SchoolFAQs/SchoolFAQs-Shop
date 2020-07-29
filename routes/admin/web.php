@@ -28,7 +28,9 @@ Route::domain('shop.'. config('app.domain'))->group(function () {
 	        Route::get('uservendors/{id}', 'VendorsController@create')->name('uservendors.create');
 			Route::resource('uservendors', 'VendorsController' , ['except' => ['create']]);
 			Route::get('profile/{id}', 'PageController@profile')->name('user.profile');
-			//Route::resource('wallet', 'WithdrawalsController');
+			//Route::resource('wallet', 'WalletsController');
+			Route::get('vendor/wallet/{email}', 'WalletsController@my_wallet')->name('vendor.wallet');
+			Route::post('vendor/wallet/withdraw', 'WalletsController@withdraw_request')->name('vendorrequest.wallet');
 
 				// Admin Routes
 				Route::middleware(['Admin'])->group(function() {
@@ -59,6 +61,9 @@ Route::domain('shop.'. config('app.domain'))->group(function () {
 					Route::resource('totalorders', 'TotalOrdersController');
 					Route::resource('sms', 'SmsController');
 					Route::resource('rates', 'RatesController');
+					Route::put('adminwithdrawalapprove{id}', 'SuperadminWithdrawalsController@approve')->name('withdraw.approve');
+					Route::put('adminwithdrawalreject{id}', 'SuperadminWithdrawalsController@reject')->name('withdraw.reject');
+					Route::resource('adminwithdrawal', 'SuperadminWithdrawalsController');
 					
 				});	
 				

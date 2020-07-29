@@ -29,7 +29,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="#">
+            <a class="nav-link text-dark" href="{{ route('vendor.wallet', Auth()->User()->email) }}">
               <span><i class="fa fa-money"></i></span>
               Wallet <span class="badge img-thumbnail"></span>
             </a>
@@ -160,6 +160,8 @@
               Finances
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+               <a class="dropdown-item" href="{{ route('adminwithdrawal.index') }}"><i class="fa fa-user-circle"></i> Withdrawal Request <span class="badge img-thumbnail">{{number_format($withdraw_requst)}}</span></a>
+
               <a class="dropdown-item" href="{{ route('rates.index') }}"><i class="fa fa-exchange"></i> Service Rates</a>
 
               <a class="dropdown-item" href="{{ route('account.balance') }}"><i><img style="width: 20px !important;
