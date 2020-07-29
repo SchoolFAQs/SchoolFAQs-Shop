@@ -64,7 +64,7 @@ class PageController extends Controller
     public function index()
     {
         $myOrders = ['vendor_email' => Auth()->User()->email, 'payment_status' => 'SUCCESSFUL'];
-        $orders = Order::with('products.vendor')->where($myOrders)->paginate(10);   
+        $orders = Order::with('products.vendor')->where($myOrders)->get();   
         $vat = config('app.vat_rate');        
         $totalOrders = Order::where($myOrders)->count();
         foreach ($orders as $oo) {
