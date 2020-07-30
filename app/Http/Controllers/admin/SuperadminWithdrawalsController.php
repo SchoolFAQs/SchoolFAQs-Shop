@@ -90,6 +90,8 @@ class SuperadminWithdrawalsController extends Controller
     public function reject(Request $request, $id)
     {
             $withdraw = Withdraw::find($id);
+            $newBalance = $withdraw->balance + $withdraw->withdraw_amount;
+            $withdraw->balance = $newBalance;
             $withdraw->withdraw_status = 'FAILED';
             $withdraw->save();
             return Redirect::back()->with('error', 'Withdrawal request rejected.');

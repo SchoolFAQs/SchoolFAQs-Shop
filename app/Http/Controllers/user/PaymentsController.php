@@ -11,6 +11,9 @@ use Bmatovu\MtnMomo\Products\Collection;
 use Illuminate\Support\Facades\URL;
 use App\Models\Order;
 use App\Models\Message;
+use App\Models\Withdraw;
+use App\Models\Vendor;
+use App\User;
 
 class PaymentsController extends Controller
 {
@@ -91,7 +94,28 @@ class PaymentsController extends Controller
         $success = false;
         if ($transaction['status'] == 'SUCCESSFUL') {
             $success = true;
-            $order = Order::where('transaction_id', $transactionID->transactionID)->first();
+            $order = Order::with('products.vendor')->where('transaction_id', $transactionID->transactionID)->first();
+
+            // Update Wallet
+            $withdraw = Withdraw::where('user_email', $order->vendor_email)->orderBy('withdraw_date', 'desc')->first();
+            $vendor = Vendor::where('vendor_email', $order->vendor_email)->first();
+            $user = User::where('email', $order->vendor_email)->first();
+            $vat = config('app.vat_rate');
+            if ($withdraw == '') {
+                $withdraw = new Withdraw();
+                $withdraw->user_id = $user->id;
+                $withdraw->user_email = $order->vendor_email;
+                $withdraw->balance = $order->product_price/$vat * (1- $order->products()->first()->vendor()->first()->rate);
+                $withdraw->withdraw_date = Carbon::now();
+                $withdraw->save();
+            } else {
+                $balance = $withdraw->balance;
+                $withdraw->balance = $balance + ($order->product_price/$vat * (1- $order->products()->first()->vendor()->first()->rate));
+                $withdraw->withdraw_date = Carbon::now();
+                $withdraw->save();
+            }
+
+            //Save ORder
             $order_product = $order->products()->first();
             $order->payment_status = 'SUCCESSFUL';
             $order->save();

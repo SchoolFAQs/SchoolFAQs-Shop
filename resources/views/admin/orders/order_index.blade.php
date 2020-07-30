@@ -16,7 +16,7 @@
      	<div class="col col-lg col-sm-2">
      		<div class="card">
      			<div class="card-header">
-     				<h1>Total Income <i class="fa fa-money"></i></h1>
+     				<h1>Total Sales <i class="fa fa-money"></i></h1>
      			</div>
      			<div class="card-body text-success">
      				<h2 id="tot_mon">
@@ -50,7 +50,7 @@
                                 <td><i class="fas fa-book"></i> {{$op->product_name}}</td>
                                 <td><i class="fas fa-money-bill"></i> {{number_format($order->product_price)}}</td>
                                 <td><i class="fas fa-money-bill"></i> {{number_format($order->product_price/$vat)}}</td>
-                                <td><i class="fas fa-money-bill"></i> {{number_format($order->product_price*$vat - $vat*$order->product_price/$vat)}}</td>
+                                <td><i class="fas fa-money-bill"></i> {{number_format($order->product_price - $order->product_price/$vat)}}</td>
                                 
 
                                 @if($order->product_id == $op->id)

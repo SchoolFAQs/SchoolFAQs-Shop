@@ -5,6 +5,7 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Storage;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use Mediumart\Orange\SMS\SMS;
 use Mediumart\Orange\SMS\Http\SMSClient;
@@ -53,13 +54,13 @@ class OrderController extends Controller
             return view('users.already_downloaded', compact('order'));
         } else {
         $order->is_downloaded = 1;
-        $order->downloaded_at = \Carbon\Carbon::now();
+        $order->downloaded_at = Carbon::now();
         $order->save();
         //$order = Order::find($od);
         $myFile = storage_path("app/public/products/{$product->product_file}"); 
         $headers = ['Content-Type: application/pdf'];
         //$newName = 'SchoolFAQs_'.$product->id.'-'.$product->product_name.'.pdf';
-        $newName = 'SchoolFAQs_'.$product->id.'-'.$product->product_file;
+        $newName = 'SchoolFAQs_'.$product->product_file;
         //dd($myFile);
         //$order->delete();
         return response()->download($myFile, $newName, $headers);
