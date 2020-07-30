@@ -104,5 +104,6 @@
                               </tr>                              
                          </tbody>                      
                @endforeach
-     </table>       		
+     </table>     
+{{$order->links()}}  		
 @endsection
