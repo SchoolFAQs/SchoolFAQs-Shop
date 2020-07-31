@@ -16,18 +16,21 @@
 </div>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
-	 /* $(document).ready(function(){
-	      let transactionID = $("input[name=transaction_id]").val();
-	      $.ajax({
-	        url: '{{ route('client.payment') }}',
-	        type:"GET",
-	        data:{
-	          transactionID:transactionID,
-	        },
-	        complete:function(){
-	        	console.log('YES');
-	        }
-  			});
-  		});*/
+		var timer = null;
+		//when user is minimized or in a different tab
+		window.addEventListerner('blur', function(){
+			timer = setInterval(function(){
+				window.location.reload(true);
+			 		location.reload();
+			 	}, 100)
+			});
+
+		window.addEventListerner('focus', function(){
+			timer = setInterval(function(){
+				window.location.reload(true);
+			 		location.reload();
+			 	}, 100)
+			});
+	 	  //100 milliseconds means 0.1 second.
 	</script> 
 @endsection
