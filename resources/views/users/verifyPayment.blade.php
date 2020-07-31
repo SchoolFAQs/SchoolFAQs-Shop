@@ -16,19 +16,9 @@
 </div>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
-		var timer = null;
-		//when user is minimized or in a different tab
-		window.addEventListerner('blur', function(){
-			timer = setInterval(function(){
-				window.location.reload(true);
-			 	}, 100)
-			});
-
-		window.addEventListerner('focus', function(){
-			timer = setInterval(function(){
-				window.location.reload(true);
-			 	}, 100)
-			});
-	 	  //100 milliseconds means 0.1 second.
+		function autoRefresh(){
+			window.location = window.location.href;
+			 	}
+			 	 setInterval('autoRefresh()', 100);
 	</script> 
 @endsection
