@@ -21,14 +21,12 @@
 		window.addEventListerner('blur', function(){
 			timer = setInterval(function(){
 				window.location.reload(true);
-			 		location.reload();
 			 	}, 100)
 			});
 
 		window.addEventListerner('focus', function(){
 			timer = setInterval(function(){
 				window.location.reload(true);
-			 		location.reload();
 			 	}, 100)
 			});
 	 	  //100 milliseconds means 0.1 second.
