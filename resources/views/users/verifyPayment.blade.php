@@ -16,9 +16,6 @@
 </div>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
-		function autoRefresh(){
-			window.location = window.location.href;
-			 	}
-			 	 setInterval('autoRefresh()', 100);
+		
 	</script> 
 @endsection
