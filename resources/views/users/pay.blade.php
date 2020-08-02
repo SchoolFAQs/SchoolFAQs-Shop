@@ -54,20 +54,26 @@
             @foreach($product->categories as $cat)
               <span class="badge text-muted">{{$cat->category_name}}</span>
             @endforeach
-
-            <div class="card" style="max-width: 540px;">
-                <div class="row no-gutters mt-3">
-                  <div class="col-md-4">
-                    <img class="card-img img-thumbnail" src=/storage/vendor_images/{{$product->vendor->vendor_image}} alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">{{$product->vendor->vendor_name}}</h5>
-                      <p class="card-text">{{$product->vendor->vendor_about}}</p>
-                    </div>
+                <hr>
+                <div class="mt-3 row">
+                  <div class="col-12 col-lg-4">
+                    <div>
+                      <div class="row no-gutters">
+                        <div class="col-6">
+                          <div>
+                            <img class="card-img" src=/storage/vendor_images/{{$product->vendor->vendor_image}} alt="..."> 
+                          </div> 
+                        </div>
+                        <div class="col">
+                          <div class="card-block px-1">
+                            <h6 class="card-title text-capitalize">{{$product->vendor->vendor_name}}</h6>
+                            <small class="card-subtitle mb-2 text-muted">{{$product->vendor->vendor_about}}</small>
+                          </div>
+                        </div>      
                   </div>
                 </div>
-            </div>
+              </div>
+              </div>
           </div>
         </div>
       </div>
