@@ -7,28 +7,30 @@
         <div class="card-body">
           <form method="POST" action="{{ route('client.pay') }}" class="form-group">
     		      <label><h6>Name</h6></label>
-    		      <input type="text" class="form-control my-2 py-3" name="customer_name" placeholder="Your Name">
-    		      <label><h6>Mobile Money Number</h6></label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1">+237</span>
+    		      <input type="text" class="form-control my-2 py-3 shadow-none border-top-0 border-left-0 border-right-0" name="customer_name" placeholder="Your Name">
+      		      <label><h6>Mobile Money Number</h6></label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">+237</span>
+                  </div>
+                  <input type="number"  class="form-control border-top-0 border-left-0 border-right-0 outline-none" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" name="customer_tel" placeholder="eg: 681108107" aria-label="Default" aria-describedby="inputGroup-sizing-small">
                 </div>
-                <input type="text"  class="form-control my-2 py-3" pattern="[0-9]{3}[0-9]{3}[0-9]{3}" name="customer_tel" placeholder="eg: 681108107">
-              </div>
-    		      
-    		      <label><h6>Product Name </h6></label>
-              <input type="text" value="{{$product->product_name}}" readonly="" class="form-control my-2 py-3" name="product_name" placeholder="{{$product->product_name}}">
+    		      <div class="border p-2 my-2 bg-dark text-white">
+                <label><h6>Product Name: {{$product->product_name}}  </h6></label>
+              <input type="hidden" value="{{$product->product_name}}" readonly="" class="form-control border-top-0 border-left-0 border-right-0 my-2 py-3" name="product_name" placeholder="{{$product->product_name}}">
               <div>
-                 <label><h6 class="text-muted">VAT: {{number_format($vat*$product->product_price - $product->product_price)}} FCFA</h6></label> 
+                 <label><p>VAT: {{number_format($vat*$product->product_price - $product->product_price)}} FCFA</p></label> 
               </div>
               <div>
-                <label><h6 class="text-muted">Net Price: {{number_format($vat/$vat*$product->product_price)}} FCFA</h6></label>
+                <label><p>Net Price: {{number_format($vat/$vat*$product->product_price)}} FCFA</p></label>
               </div>
               
               <div>
-                <label><h6>Total Price </h6></label>
-                <input type="text" value="{{round($product->product_price * $vat)}}" readonly="" class="form-control my-2 py-3" name="product_price">
+                <label><h6>Total Price: {{round($product->product_price * $vat)}} FCFA </h6></label>
+                <input type="hidden" value="{{round($product->product_price * $vat)}}" readonly="" class="form-control border-top-0 border-left-0 border-right-0 my-2 py-3" name="product_price">
               </div>  
+              </div>
+    		      
               <input type="hidden" name="product_id" value="{{$product->id}}">
               <input type="hidden" name="vendor_email" value="{{$product->vendor->vendor_email}}">
               <input type="hidden" name="vendor_rate" value="{{$product->vendor->rate}}">
